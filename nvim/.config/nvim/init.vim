@@ -1,10 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'gruvbox-community/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 set termguicolors " muh colors...
 syntax enable
@@ -25,7 +25,7 @@ set shiftwidth=4  "number of spaces to use for auto-indentation
 set smarttab      "helps with backspacing because of expandtab
 
 " CoC settings
-"let g:airline#extensions#coc#enabled = 1 " enable coc-integration with airline
-    " navigating the list
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:airline#extensions#coc#enabled = 1 " enable coc-integration with airline
+" navigating the completions
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
