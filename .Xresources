@@ -38,7 +38,7 @@
 *.color15:      #fdf6e3
 
 !! URxvt Appearance
-URxvt.font: xft:Iosevka Term:style=Regular:size=10.5
+URxvt.font: xft:Iosevka Term:style=Regular:size=10
 URxvt.boldFont: xft:Iosevka Term:style=Bold:size=10.5
 URxvt.italicFont: xft:Iosevka Term:style=Italic:size=10.5
 URxvt.boldItalicFont: xft:Iosevka Term:style=Bold Italic:size=10.5
