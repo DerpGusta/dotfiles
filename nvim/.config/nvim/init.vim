@@ -1,14 +1,18 @@
+"Install vim-plug if not existing
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | q
+endif
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-surround'
-Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 set termguicolors " muh colors...
 syntax enable
-set background=dark
+"set background=dark
 set number        "number line on the left
 set autoindent    "directly follow the previous line indentation
 set noshowmode " Because of airline,we don't need to show mode again!
@@ -24,8 +28,3 @@ set expandtab     "convert tabs to spaces automatically.(Tabs ftw!)
 set shiftwidth=4  "number of spaces to use for auto-indentation
 set smarttab      "helps with backspacing because of expandtab
 
-" CoC settings
-let g:airline#extensions#coc#enabled = 1 " enable coc-integration with airline
-" navigating the completions
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
