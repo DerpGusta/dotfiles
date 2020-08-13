@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+while read file
+do
+    case "$1" in
+    "d")
+	[ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted." ;;
+    "C-r")
+        #convert -rotate 90 "$file" "$file" ;;
+        convert -rotate 270 "$file" "$file" ;;
+    "C-c")
+        echo -n "$file" | xclip -selection clipboard ;;
+    "C-g")
+        gimp "$file" ;;
+    esac
+done
+
