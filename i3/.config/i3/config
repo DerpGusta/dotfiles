@@ -210,7 +210,7 @@ client.urgent 		$red $red $white $red $red
  
 
  ################
- #shortcuts	#
+ #   shortcuts  #
  ################
  bindsym $mod+i exec firefox
  bindsym $mod+comma exec udiskie-dmenu
@@ -220,13 +220,14 @@ client.urgent 		$red $red $white $red $red
 # bindsym XF86MonBrightnessDown exec xbacklight -inc -5
  bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
  bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-##################
-# settings	 # #################
+ ##################
+ #    settings    #
+ ##################
  bindsym $mod+m exec polybar-msg cmd toggle
  hide_edge_borders smart
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
- exec_always --no-startup-id udiskie
+#exec_always --no-startup-id udiskie
  exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
  exec_always --no-startup-id ~/.config/polybar/launch.sh
  exec --no-startup-id alacritty --class="pad" 
