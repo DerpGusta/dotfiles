@@ -213,18 +213,20 @@ client.urgent 		$red $red $white $red $red
  #   shortcuts  #
  ################
  bindsym $mod+i exec firefox
+ bindsym $mod+z exec zathura
  bindsym $mod+comma exec udiskie-dmenu
  bindsym $mod+grave [instance="pad"] scratchpad show; move position 40px 20px;
- bindsym $mod+z exec zathura
 # bindsym XF86MonBrightnessUp exec xbacklight -inc +5
 # bindsym XF86MonBrightnessDown exec xbacklight -inc -5
- bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
- bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
  ##################
  #    settings    #
  ##################
  bindsym $mod+m exec polybar-msg cmd toggle
  hide_edge_borders smart
+ for_window [class="^.*"] border pixel 1
+ new_window pixel 0
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
 #exec_always --no-startup-id udiskie
