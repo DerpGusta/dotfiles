@@ -22,7 +22,8 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda3
 
-pacman -S pacman-contrib
+pacman -S --needed --noconfirm --overwrite="*" pacman-contrib
+echo "\n\nWait for rankmirrors to complete!!\n\n"
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
 
@@ -46,7 +47,7 @@ mkinitcpio -P
 passwd $rootpass
 bootctl install
 cat >> "/boot/loader/entries/arch.conf" <<BOOTEND
-title   BlackArch Linux
+title   Arch Linux
 linux   /vmlinuz-linux
 initrd    /initramfs-linux.img
 options   root=UUID=$root_uuid rw
