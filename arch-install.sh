@@ -7,6 +7,7 @@ fi
 
 rootpass= $(read -sp 'Enter password for root:') 
 timedatectl set-ntp true
+wipefs -a /dev/sda
 sgdisk -o /dev/sda
 sgdisk /dev/sda -n 1::+512M -t 1:ef00 #EFI
 sgdisk /dev/sda -n 2::-512M -t 2:8304 #root
@@ -14,21 +15,23 @@ sgdisk /dev/sda -n 3 -t 3:8200 #swap
 
 mkfs.vfat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
+mkswap /dev/sda3
 
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda3
 
-genfstab -p /mnt >>/mnt/etc/fstab
-root_uuid="$(blkid "/dev/sda2" | cut -d ' ' -f 2 | cut -d '"' -f 2)"
-
+pacman -S pacman-contrib
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
-pacman -Syy
 
-cp -L /etc/resolv.conf "/mnt/etc/resolv.conf" > 
 pacstrap /mnt base base-devel linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
+root_uuid="$(blkid "/dev/sda2" | cut -d ' ' -f 2 | cut -d '"' -f 2)"
+
+cp -L /etc/resolv.conf "/mnt/etc/resolv.conf"
+
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/ 
 
 arch-chroot /mnt /bin/bash <<EOF
