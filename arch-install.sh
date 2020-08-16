@@ -44,10 +44,10 @@ LOCALE="en_US.UTF-8"
 sed -i "/$LOCALE/s/^#//" /mnt/etc/locale.gen
 echo "LANG=$LOCALE" > /mnt/etc/locale.conf
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
-cat "tytoalba" > /mnt/etc/hostname
+echo "tytoalba" > /mnt/etc/hostname
 bootctl install --boot-path=/mnt/boot
-touch /mnt/boot/loader/entries/
-cat >> "/mnt/boot/loader/entries/arch.conf" << BOOTEND
+
+cat >> /mnt/boot/loader/entries/arch.conf << BOOTEND
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd    /initramfs-linux.img
