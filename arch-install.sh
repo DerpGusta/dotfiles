@@ -39,7 +39,6 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/
 
 echo "root:$rootpass" | chpasswd -R /mnt 
 
-ln -sf /mnt/usr/share/zoneinfo/Asia/Kolkata /mnt/etc/localtime
 LOCALE="en_US.UTF-8"
 sed -i "/$LOCALE/s/^#//" /mnt/etc/locale.gen
 echo "LANG=$LOCALE" > /mnt/etc/locale.conf
@@ -66,6 +65,7 @@ arch-chroot /mnt /bin/bash < strap.sh
 
 arch-chroot /mnt /bin/bash <<EOF
 locale-gen
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime 
 systemctl enable systemd-networkd
 systemctl enable vmware-vmblock-fuse.service vmtoolsd.service
 systemctl enable lxdm.service
