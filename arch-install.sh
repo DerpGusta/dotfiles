@@ -7,12 +7,13 @@ fi
 
 read -rsp 'Enter password for root:' rootpass
 timedatectl set-ntp true
+wipefs -a /dev/sda[1-9]*
 wipefs -a /dev/sda
 sgdisk -o /dev/sda
 sgdisk /dev/sda -n 1::+512M -t 1:ef00 #EFI
 sgdisk /dev/sda -n 2::-512M -t 2:8304 #root
 sgdisk /dev/sda -n 3 -t 3:8200 #swap
-
+wipefs -a /dev/sda[1-9]*
 mkfs.vfat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 mkswap /dev/sda3
