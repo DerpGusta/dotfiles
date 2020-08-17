@@ -1,27 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 ### OPTIONS AND VARIABLES ###
 
 dotfilesrepo="https://github.com/DerpGusta/dotfiles.git"
 progsfile="https://raw.githubusercontent.com/DerpGusta/dotfiles/master/packages.csv"
-aurhelper="yay-bin"
+aurhelper="yay"
 distro="arch"
 installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 grepseq="\"^[PGA]*,\""
 
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 
-welcomemsg() { \
-	dialog --title "Welcome!" --msgbox "Welcome to Derp's Auto-Rice Bootstrapping Script!\\n\\nThis script was modified from LARBS.sh and installs a system for my virtual machine. Hope you enjoy this as much as I did!\\n\\n-Derp" 10 60
-
-	dialog --colors --title "Important Note!" --yes-label "All ready!" --no-label "Return..." --yesno "Be sure the computer you are using has current pacman updates and refreshed Arch keyrings.\\n\\nIf it does not, the installation of some programs might fail." 8 70
-	}
-
 getuserandpass() { \
 	# Prompts user for password.
 	name="derp"
-	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1)
-	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+	pass1=$(dialog --no-cancel --passwordbox --insecure "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1)
+	pass2=$(dialog --no-cancel --passwordbox --insecure "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
 	while ! [ "$pass1" = "$pass2" ]; do
 		unset pass2
 		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -60,10 +54,9 @@ manualinstall() { # Installs $1 manually if not installed. Used only for AUR hel
 	cd /tmp || exit
 	rm -rf /tmp/yay-bin*
 	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
-	sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 &&
-	cd "yay-bin"
+	sudo -u "$name" 'tar -xvf yay-bin.tar.gz >/dev/null 2>&1 && cd "yay-bin"'
 	sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
-	cd /tmp || return ;}
+	cd /tmp;}
 
 maininstall() { # Installs all needed programs from main repo.
 	dialog --title "DARBS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
@@ -86,14 +79,8 @@ aurinstall() { \
 	sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 	}
 
-pipinstall() { \
-	dialog --title "DARBS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
-	command -v pip || installpkg python-pip >/dev/null 2>&1
-	yes | pip install "$1"
-	}
-
 installationloop() { \
-	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || curl -Ls "$progsfile" | sed '/^#/d' | eval grep "$grepseq" > /tmp/progs.csv
+	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || curl -Ls "$progsfile" | sed '/^#/d' | grep "$grepseq" > /tmp/progs.csv
 	total=$(wc -l < /tmp/progs.csv)
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
@@ -102,7 +89,6 @@ installationloop() { \
 		case "$tag" in
 			"A") aurinstall "$program" "$comment" ;;
 			"G") gitmakeinstall "$program" "$comment" ;;
-			"P") pipinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
 	done < /tmp/progs.csv ;}
@@ -110,8 +96,7 @@ installationloop() { \
 putgitrepo() { # Downloads a gitrepo $1 and places the symbolic links to files in $2 using stow
 	dialog --infobox "Downloading and installing config files..." 4 60
 	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" cd $dir/dotfiles && stow $(ls -d */) 
-
+	sudo -u "$name" cd $dir/dotfiles && stow "$(ls -d /*)"
 	}
 
 systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
@@ -149,43 +134,37 @@ adduserandpass || error "Error adding username and/or password."
 # Refresh Arch keyrings.
 refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
+[ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
 
-[ "$distro" = arch ] && { \
-	[ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
+# Allow user to run sudo without password. Since AUR programs must be installed
+# in a fakeroot environment, this is required for all builds with AUR.
+newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
 
-	# Allow user to run sudo without password. Since AUR programs must be installed
-	# in a fakeroot environment, this is required for all builds with AUR.
-	newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
+# Make pacman and yay colorful. 
+grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
 
-	# Make pacman and yay colorful. 
-	grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
-
-	# Use all cores for compilation.
-	sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
-
-	manualinstall || error "Failed to install AUR helper."
-	}
+# Use all cores for compilation.
+sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
+manualinstall || error "Failed to install yay."
 
 # The command that does all the installing. Reads the progs.csv file and
 # installs each needed program the way required. Be sure to run this only after
 # the user has been created and has priviledges to run sudo without a password
 # and all build dependencies are installed.
-putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
+putgitrepo "$dotfilesrepo" "/home/$name"
 
 installationloop
 
 
-# Install the dotfiles in the user's home directory
-
 # Most important command! Get rid of the beep!
 systembeepoff
 
-# Make zsh the default shell for the user.
-chsh -s /bin/fish $name >/dev/null 2>&1
+# Make fish the default shell for the user.
+chsh -s /usr/bin/fish $name >/dev/null 2>&1
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
-[ "$distro" = arch ] && newperms "%wheel ALL=(ALL) ALL #DARBS
+newperms "%wheel ALL=(ALL) ALL #DARBS
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/yay,/usr/bin/pacman -Syyuw --noconfirm"
 
 # Last message! Install complete!
