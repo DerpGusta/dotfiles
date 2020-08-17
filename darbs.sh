@@ -13,12 +13,12 @@ error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 getuserandpass() { \
 	# Prompts user for password.
 	name="derp"
-	read -spr 'Enter a password for that user.' pass1
-	read -spr 'Retype password.' pass2
+	read -rsp 'Enter a password for that user.' pass1
+	read -rsp 'Retype password.' pass2
 	while ! [ "$pass1" = "$pass2" ]; do
 		unset pass2
-		read -spr 'Enter a password for that user.' pass1
-	        read -spr 'Retype password.' pass2
+		read -rsp 'Enter a password for that user.' pass1
+	        read -rsp 'Retype password.' pass2
 	done ;}
 
 adduserandpass() { \
