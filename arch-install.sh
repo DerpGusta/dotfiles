@@ -28,7 +28,7 @@ mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
 
 pacstrap /mnt base base-devel linux linux-firmware open-vm-tools xf86-video-vmware \
-lxdm xf86-input-vmmouse i3-gaps
+lxdm xf86-input-vmmouse i3-gaps git
 
 genfstab -U /mnt >> /mnt/etc/fstab
 root_uuid=$(lsblk /dev/sda2 -no uuid)
@@ -45,10 +45,17 @@ echo "LANG=$LOCALE" > /mnt/etc/locale.conf
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
 echo "tytoalba" > /mnt/etc/hostname
 
-network_file="/mnt/etc/systemd/network/20-wired.conf"
-if [[ -f $network_file ]]; then
+network_file="/mnt/etc/systemd/network/20-ethernet.network"
+cp /etc/systemd/network/20-ethernet.network $network_file
 sed -i '/\[Network\]/a DNS=1.0.0.1' $network_file
-fi
+touch /mnt/etc/systemd/network/90-tun-ignore.network
+cat > /mnt/etc/systemd/network/90-tun-ignore.network <<EOF
+[Match]
+Name=tun*
+
+[Link]
+Unmanaged=true
+EOF
 
 curl -O https://blackarch.org/strap.sh
 echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c - || exit 1
@@ -72,6 +79,7 @@ options   root=UUID=$root_uuid rw
 BOOTEND
 
 echo "console-mode 1" >> /mnt/boot/loader/loader.conf
+arch-chroot /mnt /bin/bash < darbs.sh
 umount -R /mnt
 
 echo "Done! Now all you have to do is run the darbs.sh after reboot"
