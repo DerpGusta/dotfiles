@@ -57,15 +57,13 @@ newperms() { # Set special sudoers settings for install (or after).
 	echo "$* #DARBS" >> /etc/sudoers ;}
 
 manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.
-	[ -f "/usr/bin/$1" ] || (
-	dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
 	cd /tmp || exit
-	rm -rf /tmp/"$1"*
-	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1-bin".tar.gz &&
-	sudo -u "$name" tar -xvf "$1-bin".tar.gz >/dev/null 2>&1 &&
-	cd "$1" &&
-	sudo -u "$name" makepkg --noconfirm -si >/dev/null 2>&1
-	cd /tmp || return) ;}
+	rm -rf /tmp/yay-bin*
+	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
+	sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 &&
+	sudo -u $name sh -c 'cd "yay-bin"'
+	sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
+	cd /tmp || return ;}
 
 maininstall() { # Installs all needed programs from main repo.
 	dialog --title "DARBS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
@@ -111,12 +109,9 @@ installationloop() { \
 
 putgitrepo() { # Downloads a gitrepo $1 and places the symbolic links to files in $2 using stow
 	dialog --infobox "Downloading and installing config files..." 4 60
-	[ -z "$3" ] && branch="master" || branch="$repobranch"
-	[ ! -d "$2" ] && mkdir -p "$2"
-	dir=$2
 	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
-	cd "$dir/dotfiles"
-	stow $(ls -d */) 
+	sudo -u "$name" cd $dir/dotfiles && stow $(ls -d */) 
+
 	}
 
 systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
@@ -168,7 +163,7 @@ refreshkeys || error "Error automatically refreshing Arch keyring. Consider doin
 	# Use all cores for compilation.
 	sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 
-	manualinstall $aurhelper || error "Failed to install AUR helper."
+	manualinstall || error "Failed to install AUR helper."
 	}
 
 # The command that does all the installing. Reads the progs.csv file and
