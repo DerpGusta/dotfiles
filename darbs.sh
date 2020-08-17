@@ -5,7 +5,6 @@
 dotfilesrepo="https://github.com/DerpGusta/dotfiles.git"
 progsfile="https://raw.githubusercontent.com/DerpGusta/dotfiles/master/packages.csv"
 aurhelper="yay"
-distro="arch"
 installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 grepseq="\"^[PGA]*,\""
 
@@ -33,7 +32,7 @@ adduserandpass() { \
 	groupadd "$name" >/dev/null 2>&1
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
-	repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
+	repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":wheel "$(dirname "$repodir")"
 	echo "$name:$pass1" | chpasswd
 	unset pass1 pass2 ;}
 
@@ -52,7 +51,7 @@ manualinstall() { # Installs $1 manually if not installed. Used only for AUR hel
 	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
 	sudo -u "$name" 'tar -xvf yay-bin.tar.gz >/dev/null 2>&1 && cd "yay-bin"'
 	sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
-	cd /tmp;}
+	cd /tmp || exit;}
 
 maininstall() { # Installs all needed programs from main repo.
 	dialog --title "DARBS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
@@ -91,8 +90,8 @@ installationloop() { \
 
 putgitrepo() { # Downloads a gitrepo $1 and places the symbolic links to files in $2 using stow
 	dialog --infobox "Downloading and installing config files..." 4 60
-	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" cd $dir/dotfiles && stow "$(ls -d /*)"
+	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1
+	sudo -u "$name" sh -c "cd $dir/dotfiles && stow \"$(ls -d /*)\""
 	}
 
 systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
