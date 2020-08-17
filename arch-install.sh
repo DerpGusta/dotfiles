@@ -6,6 +6,16 @@ if [[ ! $(curl -Is http://www.google.com/ | head -n 1) =~ "200 OK" ]]; then
 fi
 
 read -rsp 'Enter password for root:' rootpass
+name="derp"
+read -rsp 'Enter a password for user.' pass1
+read -rsp 'Retype password.' pass2
+while ! [ "$pass1" = "$pass2" ]; do
+    unset pass2
+    read -rsp 'Enter a password for that user.' pass1
+    read -rsp 'Retype password.' pass2
+done 
+chroot = "arch-chroot /mnt /bin/bash/"
+
 timedatectl set-ntp true
 wipefs -a /dev/sda[1-9]*
 wipefs -a /dev/sda
@@ -61,12 +71,42 @@ EOF
 curl -O https://blackarch.org/strap.sh
 echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c - || exit 1
 chmod +x strap.sh
-arch-chroot /mnt /bin/bash < strap.sh
+$chroot < strap.sh
 
-arch-chroot /mnt /bin/bash <<EOF
+echo "Adding user \"$name\"..."
+$chroot < groupadd "$name" >/dev/null 2>&1
+$chroot < useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
+umount -R /mnt
+echo "$name:$pass1" | chpasswd
+unset pass1 pass2
+
+echo -e "\n REFRESHING ARCHLINUX KEYRING"
+pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
+
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+$chroot << EOF
+cd /tmp
+rm -rf /tmp/yay-bin*
+curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
+sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 && cd yay-bin
+sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
+cd /tmp
+sudo -u "$name" git clone --depth 1 https://github.com/DerpGusta/dotfiles.git  ~/ >/dev/null 2>&1
+cd /home/derp/dotfiles/
+sudo -u "$name" stow $(ls -d */)
+grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
+sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
+chsh -s /usr/bin/fish $name >/dev/null 2>&1
+echo -e "%wheel ALL=(ALL) ALL #DARBS\n
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/yay,/usr/bin/pacman -Syyuw --noconfirm" >> /etc/sudoers
+EOF
+
+$chroot <<EOF
 locale-gen
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 bootctl install
+rmmod pcspkr
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 systemctl enable systemd-networkd
 systemctl enable vmware-vmblock-fuse.service vmtoolsd.service
 systemctl enable lxdm.service
@@ -80,7 +120,29 @@ options   root=UUID=$root_uuid rw
 BOOTEND
 
 echo "console-mode 1" >> /mnt/boot/loader/loader.conf
-arch-chroot /mnt /bin/bash < darbs.sh
-umount -R /mnt
+$chroot << EOF
+$progsfile=/home/derp/dotfiles/packages.csv
+installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
-echo "Done! Now all you have to do is run the darbs.sh after reboot"
+maininstall() { # Installs all needed programs from main repo.
+	installpkg "$1"
+	}
+
+aurinstall() { \
+    echo -e "Installing \`$1\` ($n of $total) from the AUR. $1 $2\n"
+    echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
+    sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
+}
+
+([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) | sed '/^#/d' | grep "$grepseq" > /tmp/progs.csv
+total=$(wc -l < /tmp/progs.csv)
+aurinstalled=$(pacman -Qqm)
+while IFS=, read -r tag program comment; do
+    n=$((n+1))
+    echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
+    case "$tag" in
+        "A") aurinstall "$program" "$comment" ;;
+        *) maininstall "$program" "$comment" ;;
+    esac
+done < /tmp/progs.csv 
+EOF
