@@ -27,10 +27,6 @@ usercheck() { \
 	dialog --colors --title "WARNING!" --yes-label "CONTINUE" --no-label "No wait..." --yesno "The user \`$name\` already exists on this system. DARBS can install for a user already existing, but it will \\Zboverwrite\\Zn any conflicting settings/dotfiles on the user account.\\n\\nDARBS will \\Zbnot\\Zn overwrite your user files, documents, videos, etc., so don't worry about that, but only click <CONTINUE> if you don't mind your settings being overwritten.\\n\\nNote also that DARBS will change $name's password to the one you just gave." 14 70
 	}
 
-preinstallmsg() { \
-	dialog --title "Let's get this party started!" --yes-label "Let's go!" --no-label "No, nevermind!" --yesno "The rest of the installation will now be totally automated, so you can sit back and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Let's go!> and the system will begin installation!" 13 60 || { clear; exit; }
-	}
-
 adduserandpass() { \
 	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
@@ -115,17 +111,11 @@ finalize(){ \
 # Check if user is root on Arch distro. Install dialog.
 installpkg dialog || error "Are you sure you're running this as the root user and have an internet connection?"
 
-# Welcome user and pick dotfiles.
-welcomemsg || error "User exited."
-
 # Get and verify username and password.
 getuserandpass || error "User exited."
 
 # Give warning if user already exists.
 usercheck || error "User exited."
-
-# Last chance for user to back out before install.
-preinstallmsg || error "User exited."
 
 ### The rest of the script requires no user input.
 
