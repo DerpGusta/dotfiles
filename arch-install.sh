@@ -28,7 +28,7 @@ mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
 
 pacstrap /mnt base base-devel linux linux-firmware open-vm-tools xf86-video-vmware \
-lxdm xf86-input-vmmouse
+lxdm xf86-input-vmmouse i3-gaps
 
 genfstab -U /mnt >> /mnt/etc/fstab
 root_uuid=$(lsblk /dev/sda2 -no uuid)
@@ -44,14 +44,6 @@ sed -i "/$LOCALE/s/^#//" /mnt/etc/locale.gen
 echo "LANG=$LOCALE" > /mnt/etc/locale.conf
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
 echo "tytoalba" > /mnt/etc/hostname
-bootctl install --boot-path=/mnt/boot
-
-cat >> /mnt/boot/loader/entries/arch.conf << BOOTEND
-title   Arch Linux
-linux   /vmlinuz-linux
-initrd    /initramfs-linux.img
-options   root=UUID=$root_uuid rw
-BOOTEND
 
 network_file="/mnt/etc/systemd/network/20-wired.conf"
 if [[ -f $network_file ]]; then
@@ -65,12 +57,21 @@ arch-chroot /mnt /bin/bash < strap.sh
 
 arch-chroot /mnt /bin/bash <<EOF
 locale-gen
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime 
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+bootctl install
 systemctl enable systemd-networkd
 systemctl enable vmware-vmblock-fuse.service vmtoolsd.service
 systemctl enable lxdm.service
 EOF
 
+cat >> /mnt/boot/loader/entries/arch.conf << BOOTEND
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd    /initramfs-linux.img
+options   root=UUID=$root_uuid rw
+BOOTEND
+
+echo "console-mode 1" >> /mnt/boot/loader/loader.conf
 umount -R /mnt
 
 echo "Done! Now all you have to do is run the darbs.sh after reboot"
