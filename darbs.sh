@@ -115,7 +115,8 @@ putgitrepo() { # Downloads a gitrepo $1 and places the symbolic links to files i
 	[ ! -d "$2" ] && mkdir -p "$2"
 	dir=$2
 	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" cd "$dir/dotfiles" && stow $(ls -d */) -t $dir 
+	cd "$dir/dotfiles"
+	stow $(ls -d */) 
 	}
 
 systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
