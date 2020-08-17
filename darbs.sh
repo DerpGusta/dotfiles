@@ -61,7 +61,7 @@ manualinstall() { # Installs $1 manually if not installed. Used only for AUR hel
 	rm -rf /tmp/yay-bin*
 	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
 	sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 &&
-	sudo -u $name sh -c 'cd "yay-bin"'
+	cd "yay-bin"
 	sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
 	cd /tmp || return ;}
 
@@ -183,9 +183,6 @@ systembeepoff
 # Make zsh the default shell for the user.
 chsh -s /bin/fish $name >/dev/null 2>&1
 
-# dbus UUID must be generated for Artix runit.
-#dbus-uuidgen > /var/lib/dbus/machine-id
-
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 [ "$distro" = arch ] && newperms "%wheel ALL=(ALL) ALL #DARBS
@@ -193,4 +190,3 @@ chsh -s /bin/fish $name >/dev/null 2>&1
 
 # Last message! Install complete!
 finalize
-clear
