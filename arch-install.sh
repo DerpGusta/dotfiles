@@ -49,8 +49,8 @@ genfstab -p /mnt >>/mnt/etc/fstab
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
 echo "Adding user now"
 $chcmd groupadd "$name" >/dev/null 2>&1
-$chcmd useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
-$chcmd echo "$name:$pass1" | chpasswd
+arch-chroot /mnt useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
+arch-chroot 'echo "$name:$pass1" | chpasswd'
 unset pass1 pass2
 
 echo -e "\n REFRESHING ARCHLINUX KEYRING"
