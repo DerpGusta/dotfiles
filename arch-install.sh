@@ -36,17 +36,20 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda3
 
-genfstab -p /mnt >>/mnt/etc/fstab
-root_uuid="$(blkid "/dev/sda2" | cut -d ' ' -f 2 | cut -d '"' -f 2)"
-
+echo -e "\n Selecting the fastest servers \n"
+pacman -S --noconfirm pacman-contrib
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
-pacman -Syy
+echo -e "\n Updating packages"
+pacman -Sy
 
 cp -L /etc/resolv.conf "/mnt/etc/resolv.conf" 
 pacstrap /mnt base base-devel linux linux-firmware\
 open-vm-tools lxdm stow xf86-video-vmware xf86-input-vmmouse
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/ 
+
+genfstab -p /mnt >>/mnt/etc/fstab
+root_uuid="$(lsblk /dev/sda2 -no uuid)"
 
 $chcmd groupadd "$name" >/dev/null 2>&1
 $chcmd useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
