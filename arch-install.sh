@@ -20,8 +20,6 @@ done
 chroot='arch-chroot /mnt /bin/bash'
 chcmd='arch-chroot /mnt'
 
-echo -e "\nAdding user \"$name\"..."
-
 timedatectl set-ntp true
 sgdisk -o /dev/sda
 sgdisk /dev/sda -n 1::+512M -t 1:ef00 #EFI
@@ -43,14 +41,13 @@ rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
 echo -e "\n Updating packages"
 pacman -Sy
 
-cp -L /etc/resolv.conf "/mnt/etc/resolv.conf" 
-pacstrap /mnt base base-devel linux linux-firmware\
+pacstrap /mnt base base-devel linux linux-firmware i3-gaps \
 open-vm-tools lxdm stow xf86-video-vmware xf86-input-vmmouse
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/ 
 
 genfstab -p /mnt >>/mnt/etc/fstab
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
-
+echo "Adding user now"
 $chcmd groupadd "$name" >/dev/null 2>&1
 $chcmd useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
 $chcmd echo "$name:$pass1" | chpasswd
@@ -58,11 +55,14 @@ unset pass1 pass2
 
 echo -e "\n REFRESHING ARCHLINUX KEYRING"
 $chcmd pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
-$chmod [[ -f /etc/sudoers ]] && cp "/etc/sudoers" "/etc/sudoers.bak"
+$chmod -c '[[ -f /etc/sudoers ]] && cp "/etc/sudoers" "/etc/sudoers.bak"'
 
 echo -e "\n Making changes to sudoers"
-$chcmd rm "/etc/sudoers"
 cat >> "/mnt/etc/sudoers" << EOF
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
 %wheel ALL=(ALL) NOPASSWD: ALL
 root ALL=(ALL:ALL) ALL
 %admin ALL=(ALL) ALL
@@ -84,10 +84,10 @@ dirs=(*/)
 sudo -u "$name" stow "${dirs[@]%/}"
 grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
 sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
-chsh -s /usr/bin/fish $name >/dev/null 2>&1
 EOF
 
 echo -e "\n Setting up timezone, bootloader and startup services"
+
 $chroot <<EOF
 locale-gen
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
@@ -109,6 +109,7 @@ BOOTEND
 echo "console-mode 1" >> /mnt/boot/loader/loader.conf
 
 echo -e "\n Installing packages from packages.csv"
+ls /mnt/home/derp/dotfiles/
 $chroot << EOF
 progsfile="/home/derp/dotfiles/packages.csv"
 installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
@@ -120,21 +121,22 @@ maininstall() { # Installs all needed programs from main repo.
 aurinstall() { \
     echo -e "Installing \`$1\` ($n of $total) from the AUR. $1 $2\n"
     echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
-    sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
+    sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
 }
-
-([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) | sed '/^#/d' | grep "$grepseq" > /tmp/progs.csv
-total=$(wc -l < /tmp/progs.csv)
-aurinstalled=$(pacman -Qqm)
-while IFS=, read -r tag program comment; do
-    n=$((n+1))
-    echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
-    case "$tag" in
-        "A") aurinstall "$program" "$comment" ;;
-        *) maininstall "$program" "$comment" ;;
-    esac
-done < /tmp/progs.csv 
+installationloop() { \
+	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /tmp/progs.csv
+	total=$(wc -l < /tmp/progs.csv)
+	aurinstalled=$(pacman -Qqm)
+	while IFS=, read -r tag program comment; do
+		n=$((n+1))
+		echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
+		case "$tag" in
+			"A") aurinstall "$program" "$comment" ;;
+			*) maininstall "$program" "$comment" ;;
+		esac
+	done < /tmp/progs.csv ;}
+installationloop
 EOF
 echo -e "\n Unmounting all the partitons"
-#umount -R /mnt
+umount -R /mnt
 
