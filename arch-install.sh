@@ -34,9 +34,9 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 swapon /dev/sda3
 
-echo -e "\n Selecting the fastest servers \n"
 pacman -S --noconfirm pacman-contrib
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
+echo -e "\n Selecting the fastest servers \n"
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
 echo -e "\n Updating packages"
 pacman -Sy
@@ -49,8 +49,9 @@ genfstab -p /mnt >>/mnt/etc/fstab
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
 echo "Adding user now"
 $chcmd groupadd "$name" >/dev/null 2>&1
-arch-chroot /mnt useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 || usermod -a -G wheel,users,video,audio,$name "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
-arch-chroot 'echo "$name:$pass1" | chpasswd'
+arch-chroot /mnt useradd -m -g wheel -s /bin/bash "$name" >/dev/null
+arch-chroot /mnt usermod -a -G audio,video
+arch-chroot "echo \"$name:$pass1\" | chpasswd"
 unset pass1 pass2
 
 echo -e "\n REFRESHING ARCHLINUX KEYRING"
@@ -124,8 +125,8 @@ aurinstall() { \
     sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
 }
 installationloop() { \
-	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /tmp/progs.csv
-	total=$(wc -l < /tmp/progs.csv)
+	([ -f "$progsfile" ] && cp "$progsfile" /home/derp/dotfiles/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /home/derp/dotfiles/progs.csv
+	total=$(wc -l < /home/derp/dotfiles/progs.csv)
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
@@ -134,7 +135,7 @@ installationloop() { \
 			"A") aurinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
-	done < /tmp/progs.csv ;}
+	done < /home/derp/dotfiles/progs.csv ;}
 installationloop
 EOF
 echo -e "\n Unmounting all the partitons"
