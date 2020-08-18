@@ -111,9 +111,9 @@ echo "console-mode 1" >> /mnt/boot/loader/loader.conf
 
 echo -e "\n Installing packages from packages.csv"
 ls /mnt/home/derp/dotfiles/
-$chroot << EOF
-progsfile="/home/derp/dotfiles/packages.csv"
-installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
+
+progsfile="/mnt/home/derp/dotfiles/packages.csv"
+installpkg(){ $chcmd pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
 maininstall() { # Installs all needed programs from main repo.
 	installpkg "$1"
@@ -122,10 +122,10 @@ maininstall() { # Installs all needed programs from main repo.
 aurinstall() { \
     echo -e "Installing \`$1\` ($n of $total) from the AUR. $1 $2\n"
     echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
-    sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
+    arch-chroot /mnt sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
 }
 installationloop() { \
-	([ -f "$progsfile" ] && cp "$progsfile" /home/derp/dotfiles/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /home/derp/dotfiles/progs.csv
+	([ -f "$progsfile" ] && cp "$progsfile" /mnt/home/derp/dotfiles/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /mnt/home/derp/dotfiles/progs.csv
 	total=$(wc -l < /home/derp/dotfiles/progs.csv)
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
@@ -135,9 +135,9 @@ installationloop() { \
 			"A") aurinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
-	done < /home/derp/dotfiles/progs.csv ;}
+	done < /mnt/home/derp/dotfiles/progs.csv ;}
 installationloop
-EOF
+
 echo -e "\n Unmounting all the partitons"
 umount -R /mnt
 
