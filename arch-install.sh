@@ -116,18 +116,16 @@ progsfile="/mnt/home/derp/dotfiles/packages.csv"
 installpkg(){ $chcmd pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
 maininstall() { # Installs all needed programs from main repo.
+	echo -e "\n Installing $1 -> $2 from pacman"
 	installpkg "$1"
 	}
 
 aurinstall() { \
-    echo -e "Installing \`$1\` ($n of $total) from the AUR. $1 $2\n"
-    echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
+	echo -e "\n Installing $1 -> $2 from AUR"
     arch-chroot /mnt sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
 }
 installationloop() { \
 	([ -f "$progsfile" ] && cp "$progsfile" /mnt/home/derp/dotfiles/progs.csv) || echo "Where's the damn progsfile?" | sed '/^#/d' | eval grep "^[PGA]*," > /mnt/home/derp/dotfiles/progs.csv
-	total=$(wc -l < /home/derp/dotfiles/progs.csv)
-	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
 		echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
