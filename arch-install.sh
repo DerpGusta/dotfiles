@@ -28,6 +28,7 @@ sgdisk /dev/sda -n 3 -t 3:8200 #swap
 
 mkfs.vfat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
+mkswap /dev/sda3
 
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
