@@ -230,9 +230,9 @@ client.urgent 		$red $red $white $red $red
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
 #exec_always --no-startup-id udiskie
- exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
- exec_always --no-startup-id ~/.config/polybar/launch.sh
- exec --no-startup-id alacritty --class="pad" 
+exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id alacritty --class="pad" 
 for_window [instance="pad"] floating enable;
 for_window [instance="pad"] resize set 1350 500;
 for_window [instance="pad"] move scratchpad;
