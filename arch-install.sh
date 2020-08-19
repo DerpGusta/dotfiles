@@ -40,26 +40,12 @@ root_uuid="$(lsblk /dev/sda2 -no uuid)"
 echo -e "\e[1;32mAdding user now\e[0m"
 $chcmd groupadd "$name" >/dev/null 2>&1
 arch-chroot /mnt useradd -m -g wheel -s /bin/bash "$name" >/dev/null
-arch-chroot /mnt usermod -a -G audio,video
-arch-chroot /mnt echo -e "root:toor" | chpasswd
-arch-chroot /mnt echo -e "$name:arch" | chpasswd
+arch-chroot /mnt usermod -a -G audio,video $name
+echo "root:toor" | chpasswd -R /mnt 
+echo "derp:arch" | chpasswd -R /mnt
 
 echo -e "\e[1;32m\n REFRESHING ARCHLINUX KEYRING\e[0m"
 $chcmd pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
-$chmod -c '[[ -f /etc/sudoers ]] && cp "/etc/sudoers" "/etc/sudoers.bak"'
-
-echo -e "\e[1;32m\n Making changes to sudoers\e[0m"
-cat >> "/mnt/etc/sudoers" << EOF
-Defaults        env_reset
-Defaults        mail_badpass
-Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-
-%wheel ALL=(ALL) NOPASSWD: ALL
-root ALL=(ALL:ALL) ALL
-%admin ALL=(ALL) ALL
-%sudo ALL=(ALL:ALL) ALL
-@includedir /etc/sudoers.d
-EOF
 
 echo -e "\e[1;32m\n Installing yay and installing dotfiles\e[0m"
 $chroot << EOF
@@ -70,8 +56,8 @@ sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 && cd yay-bin
 sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
 cd /tmp
 yay -Sy
-sudo -u "$name" git clone --depth 1 https://github.com/DerpGusta/dotfiles.git  /home/$user/dotfiles >/dev/null 2>&1
-cd "/home/$user/dotfiles/"
+sudo -u "$name" git clone --depth 1 https://github.com/DerpGusta/dotfiles.git  /home/$name/dotfiles >/dev/null 2>&1
+cd "/home/$name/dotfiles/"
 dirs=(*/)
 sudo -u "$name" stow "${dirs[@]%/}"
 grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
@@ -101,9 +87,9 @@ BOOTEND
 echo "console-mode 1" >> /mnt/boot/loader/loader.conf
 
 echo -e "\e[1;32m\n Installing packages from packages.csv\e[0m"
-ls /mnt/home/$user/dotfiles/
+ls /mnt/home/$name/dotfiles/
 
-progsfile="/mnt/home/$user/dotfiles/packages.csv"
+progsfile="/mnt/home/$name/dotfiles/packages.csv"
 installpkg(){ $chcmd pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
 maininstall() { # Installs all needed programs from main repo.
@@ -116,7 +102,7 @@ aurinstall() { \
     arch-chroot /mnt sudo -u "$name" yay -S --noconfirm "$1" >/dev/null 2>&1
 }
 installationloop() { \
-	([ -f "$progsfile" ] && cp "$progsfile" /mnt/home/$user/dotfiles/progs.csv) || echo -e "\e[1;32mWhere's the damn progsfile?\e[0m" | sed '/^#/d' | eval grep "^[PGA]*," > /mnt/home/$user/dotfiles/progs.csv
+	([ -f "$progsfile" ] && cp "$progsfile" /mnt/home/$name/dotfiles/progs.csv) || echo -e "\e[1;32mWhere's the damn progsfile?\e[0m" | sed '/^#/d' | eval grep "^[PGA]*," > /mnt/home/$name/dotfiles/progs.csv
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
 		echo -e "\e[1;32m$comment\e[0m" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo -e "\e[1;32m$comment\[e0m" | sed "s/\(^\"\|\"$\)//g")"
@@ -124,9 +110,9 @@ installationloop() { \
 			"A") aurinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
-	done < /mnt/home/$user/dotfiles/progs.csv ;}
+	done < /mnt/home/derp/dotfiles/progs.csv ;}
 installationloop
-$chcmd sudo -u "$user" ./home/$user/dotfiles/stow.sh
+$chcmd sudo -u "$name" ./home/$name/dotfiles/stow.sh
 echo -e "\e[1;32m\n Unmounting all the partitons\e[0m"
 umount -R /mnt
 
