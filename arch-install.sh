@@ -53,8 +53,8 @@ arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash derp >/dev/null
 arch-chroot /mnt usermod -a -G audio,video derp
 echo -e "\e[1;32m User derp added\e[0m"
 arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-arch-chroot /mnt echo -e "root\nroot" | passwd root
-arch-chroot /mnt echo -e "arch\narch" | passwd derp
+echo -e "root\nroot" |arch-chroot /mnt passwd root
+echo -e "arch\narch" | arch-chroot /mnt passwd derp
 
 echo -e "\e[1;32m\n REFRESHING ARCHLINUX KEYRING\e[0m"
 arch-chroot /mnt pacman --noconfirm -Sy archlinux-keyring
