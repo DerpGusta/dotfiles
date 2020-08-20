@@ -52,7 +52,7 @@ echo -e "\e[1;32mAdding user now\e[0m"
 arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash derp >/dev/null
 arch-chroot /mnt usermod -a -G audio,video derp
 echo -e "\e[1;32m User derp added\e[0m"
-arch-chroot /mnt echo '%wheel ALL=(ALL) ALL' >/etc/sudoers.d/wheel
+arch-chroot /mnt /bin/bash -c "echo '%wheel ALL=(ALL) ALL' >/etc/sudoers.d/wheel"
 echo -e "root\nroot" | arch-chroot /mnt passwd root
 echo -e "arch\narch" | arch-chroot /mnt passwd derp
 
