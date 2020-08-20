@@ -49,8 +49,9 @@ genfstab -p /mnt >>/mnt/etc/fstab
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
 
 echo -e "\e[1;32mAdding user now\e[0m"
-arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash "$name" >/dev/null
-arch-chroot /mnt usermod -a -G audio,video $name
+arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash derp >/dev/null
+arch-chroot /mnt usermod -a -G audio,video derp
+echo -e "\e[1;32m User derp added\e[0m"
 arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 arch-chroot /mnt echo -e "root\nroot" | passwd root
 arch-chroot /mnt echo -e "arch\narch" | passwd derp
