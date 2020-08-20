@@ -49,11 +49,11 @@ genfstab -p /mnt >>/mnt/etc/fstab
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
 
 echo -e "\e[1;32mAdding user now\e[0m"
-arch-chroot /mnt useradd -m -g wheel,users -s /bin/bash "$name" >/dev/null
+arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash "$name" >/dev/null
 arch-chroot /mnt usermod -a -G audio,video $name
 arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-echo "root:root" | chpasswd -R /mnt 
-echo "derp:arch" | chpasswd -R /mnt
+arch-chroot /mnt echo "root\nroot" | passwd root
+arch-chrot /mnt echo "arch\narch" | passwd derp
 
 echo -e "\e[1;32m\n REFRESHING ARCHLINUX KEYRING\e[0m"
 arch-chroot /mnt pacman --noconfirm -Sy archlinux-keyring
