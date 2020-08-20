@@ -61,17 +61,16 @@ arch-chroot /mnt pacman --noconfirm -Sy archlinux-keyring
 
 echo -e "\e[1;32m\n Installing yay and installing dotfiles\e[0m"
 arch-chroot /mnt /bin/bash << EOF
-name="derp"
 cd /tmp
 rm -rf /tmp/yay-bin*
-curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz &&
-sudo -u "$name" tar -xvf yay-bin.tar.gz >/dev/null 2>&1 && cd yay-bin
-sudo -u "$name" makepkg --noconfirm -sirc >/dev/null 2>&1
+curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz
+sudo -u derp tar -xvf yay-bin.tar.gz && cd yay-bin
+sudo -u derp makepkg --noconfirm -sirc
 cd /tmp
 yay -Sy
-sudo -u "$name" git clone --depth 1 https://github.com/DerpGusta/dotfiles.git  /home/$name/dotfiles >/dev/null 2>&1
-cd "/home/$name/dotfiles/"
-sudo -u "$name" dirs=(*/); stow "${dirs[@]%/}"
+sudo -u derp git clone --depth 1 https://github.com/DerpGusta/dotfiles.git  /home/$name/dotfiles >/dev/null 2>&1
+cd "/home/derp/dotfiles/"
+sudo -u derp dirs=(*/); stow "${dirs[@]%/}"
 grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
 sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 EOF
