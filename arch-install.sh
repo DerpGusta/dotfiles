@@ -76,13 +76,13 @@ grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pac
 sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 EOF
 
-echo -e "\e[1;32m\n Installing Blackarch Repos \e[0m"
-arch-chroot /mnt /bin/bash <<EOF
-curl -O https://blackarch.org/strap.sh 
-echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c
-chmod +x strap.sh
-./strap.sh
-EOF
+#echo -e "\e[1;32m\n Installing Blackarch Repos \e[0m"
+#arch-chroot /mnt /bin/bash <<EOF
+#curl -O https://blackarch.org/strap.sh 
+#echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c
+#chmod +x strap.sh
+#./strap.sh
+#EOF
 
 echo -e "\e[1;32m\n Setting up timezone, bootloader and startup services\e[0m"
 cp /etc/systemd/network/20-ethernet.network /mnt/etc/systemd/network/
