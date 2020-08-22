@@ -46,13 +46,14 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 arch-chroot /mnt pacman -Sy
 
 genfstab -p /mnt >>/mnt/etc/fstab
+echo "tytoalba" > /etc/hostname
 root_uuid="$(lsblk /dev/sda2 -no uuid)"
 
 echo -e "\e[1;32mAdding user now\e[0m"
 arch-chroot /mnt useradd -m -U -G wheel,users -s /bin/bash derp >/dev/null
 arch-chroot /mnt usermod -a -G audio,video derp
 echo -e "\e[1;32m User derp added\e[0m"
-arch-chroot /mnt /bin/bash -c "echo '%wheel ALL=(ALL) ALL' >/etc/sudoers.d/wheel"
+arch-chroot /mnt /bin/bash -c "echo '%wheel ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/wheel"
 echo -e "root\nroot" | arch-chroot /mnt passwd root
 echo -e "arch\narch" | arch-chroot /mnt passwd derp
 
@@ -75,8 +76,15 @@ grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pac
 sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 EOF
 
-echo -e "\e[1;32m\n Setting up timezone, bootloader and startup services\e[0m"
+echo -e "\e[1;32m\n Installing Blackarch Repos \e[0m"
+arch-chroot /mnt /bin/bash <<EOF
+curl -O https://blackarch.org/strap.sh 
+echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c
+chmod +x strap.sh
+./strap.sh
+EOF
 
+echo -e "\e[1;32m\n Setting up timezone, bootloader and startup services\e[0m"
 cp /etc/systemd/network/20-ethernet.network /mnt/etc/systemd/network/
 sed -i '/^\[Network\]/a DNS=1.0.0.1/' /mnt/etc/systemd/network/20-ethernet.network
 arch-chroot /mnt /bin/bash <<EOF

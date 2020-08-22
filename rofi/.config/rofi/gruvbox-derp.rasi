@@ -76,7 +76,7 @@ element normal active, element alternate active {
 mode-switcher {
     border:       2px 0 0;
     border-color: @separatorcolor;
-    font: "Iosevka Nerd Font, Medium 19";
+    font: "Iosevka Nerd Font, Medium 10";
     background-color: transparent;
 }
 
@@ -92,7 +92,7 @@ entry,
 button {
     spacing:    0;
     background-color: transparent;
-    font: "Iosevka Nerd Font, Medium 19";
+    font: "Iosevka Nerd Font, Medium 15";
     text-color: @normal-foreground;
 }
 
