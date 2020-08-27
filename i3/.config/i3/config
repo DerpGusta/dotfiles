@@ -232,6 +232,7 @@ client.urgent 		$red $red $white $red $red
 #exec_always --no-startup-id udiskie
 exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id vmware-user
 exec --no-startup-id alacritty --class="pad" 
 for_window [instance="pad"] floating enable;
 for_window [instance="pad"] resize set 1350 500;
