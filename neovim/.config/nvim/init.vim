@@ -9,6 +9,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 set termguicolors " muh colors...
 syntax enable
@@ -28,3 +32,9 @@ set expandtab     "convert tabs to spaces automatically.(Tabs ftw!)
 set shiftwidth=4  "number of spaces to use for auto-indentation
 set smarttab      "helps with backspacing because of expandtab
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" markdown-preview keybinding(s)
+nnoremap <M-m> :MarkdownPreview<CR>

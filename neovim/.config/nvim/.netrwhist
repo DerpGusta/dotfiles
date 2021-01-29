@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/derp/notes/python_programming'
+let g:netrw_dirhist_1='/home/derp/.config/polybar/forest'
+let g:netrw_dirhist_0='/home/derp/.config/polybar'
+let g:netrw_dirhist_9='/home/derp/.config/polybar/forest'
+let g:netrw_dirhist_8='/home/derp/.config/polybar/forest/scripts'
+let g:netrw_dirhist_7='/home/derp/.config/polybar/forest'
+let g:netrw_dirhist_6='/home/derp/.config/kitty'
+let g:netrw_dirhist_5='/home/derp/.config'
+let g:netrw_dirhist_4='/home/derp/.config/kitty'
+let g:netrw_dirhist_3='/home/derp/.config/ncmpcpp'

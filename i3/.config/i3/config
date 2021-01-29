@@ -8,10 +8,11 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Iosevka Term 11.5
+font pango:Iosevka Term 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -28,7 +29,7 @@ font pango:Iosevka Term 11.5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -42,10 +43,10 @@ bindsym $mod+d exec rofi -show run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -54,10 +55,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -66,10 +67,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $alt+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $alt+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -216,24 +217,30 @@ client.urgent 		$red $red $white $red $red
  bindsym $mod+z exec zathura
  bindsym $mod+comma exec udiskie-dmenu
  bindsym $mod+grave [instance="pad"] scratchpad show; move position 40px 20px;
-# bindsym XF86MonBrightnessUp exec xbacklight -inc +5
-# bindsym XF86MonBrightnessDown exec xbacklight -inc -5
-# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+ bindsym XF86MonBrightnessUp exec brightnessctl s +2%
+ bindsym XF86MonBrightnessDown exec brightnessctl s 2%-
+ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
  ##################
  #    settings    #
  ##################
  bindsym $mod+m exec polybar-msg cmd toggle
  hide_edge_borders smart
  for_window [class="^.*"] border pixel 1
+ assign [class="zoom"] $ws9
+ for_window [window_role="pop-up"] floating enable
+ for_window [window_role="task_dialog"] floating enable
  new_window pixel 0
+ smart_gaps on
+ gaps inner 10
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
-#exec_always --no-startup-id udiskie
+exec_always --no-startup-id udiskie
+exec_always --no-startup-id dunst
+exec_always --no-startup-id picom
 exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id vmware-user
-exec --no-startup-id alacritty --class="pad" 
+exec --no-startup-id kitty --class="pad" 
 for_window [instance="pad"] floating enable;
 for_window [instance="pad"] resize set 1350 500;
 for_window [instance="pad"] move scratchpad;
