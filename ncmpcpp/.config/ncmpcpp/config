@@ -7,5 +7,5 @@ visualizer_fps=60
 visualizer_in_stereo=yes
 visualizer_look=+*
 visualizer_output_name=mpd_visualizer_fifo
-visualizer_type=ellipse
+visualizer_type=spectrum
 startup_slave_screen=visualizer

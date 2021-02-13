@@ -8,6 +8,7 @@ Xft.antialias: 1
 Xft.rgba: rgb
 ! hard contrast 
  *background: #000000
+ *background-transparent: #80000000
 !*background: #282828
 ! soft contrast  *background: #32302f
  *foreground: #ebdbb2

@@ -238,6 +238,7 @@ client.urgent 		$red $red $white $red $red
 exec_always --no-startup-id udiskie
 exec_always --no-startup-id dunst
 exec_always --no-startup-id picom
+exec_always --no-startup-id lxpolkit
 exec_always --no-startup-id nitrogen --set-scaled --random ~/dotfiles/wallpapers/
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id kitty --class="pad" 
