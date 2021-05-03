@@ -56,7 +56,8 @@ set recolor-darkcolor           "#ebdbb2" # fg
 #set recolor                     "true"
 #set recolor-keephue             true      # keep original color
 
-set font "Iosevka 12"
+set font "Iosevka 8"
 set selection-clipboard "clipboard"
 set render-loading "false"
 set scroll-step 50
+set sandbox none 
