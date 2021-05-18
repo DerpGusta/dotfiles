@@ -83,9 +83,6 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# set maximum floating window size
-floating_maximum_size 1280x800
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
@@ -235,7 +232,7 @@ bindsym $mod+y exec $term ranger
 bindsym $mod+Shift+greater exec --no-startup-id mpc -p 6600 next && notify-send "Now Playing:" "$(mpc current)" 
 bindsym $mod+Shift+less exec --no-startup-id  mpc -p 6600 prev && notify-send "Now Playing:" "$(mpc current)"
 bindsym $mod+period exec --no-startup-id  mpc -p 6600 toggle
-bindsym $mod+grave [instance="pad"] scratchpad show; move position 40px 20px;
+bindsym $mod+grave exec --no-startup-id xfce4-terminal --drop-down
 bindsym XF86MonBrightnessUp exec brightnessctl s +2%
 bindsym XF86MonBrightnessDown exec brightnessctl s 2%-
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
@@ -261,9 +258,10 @@ exec --no-startup-id notify-send  "Don't forget to do your daily typing test\!\!
 exec --no-startup-id qbittorrent
 exec --no-startup-id udiskie
 exec --no-startup-id dunst
-exec --no-startup-id picom 
 exec --no-startup-id lxpolkit
 exec --no-startup-id unclutter --jitter 10
+exec --no-startup-id guake
+exec_always --no-startup-id picom -b
 exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id $term --class="pad" 

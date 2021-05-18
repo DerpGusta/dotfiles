@@ -9,7 +9,6 @@ visualizer_look = "▋▋"
 progressbar_look = "━━─"
 visualizer_output_name=mpd_visualizer_fifo
 visualizer_type=spectrum
-startup_slave_screen=visualizer
 header_window_color = "cyan"
 volume_color = "blue"
 state_line_color = "yellow"
