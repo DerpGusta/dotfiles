@@ -1,3 +1,6 @@
+if exists('g:vscode')
+    " VSCode extension
+else
 "Install vim-plug if not existing
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -6,7 +9,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'gruvbox-community/gruvbox'
+Plug 'srcery-colors/srcery-vim'
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
 Plug 'https://github.com/alok/notational-fzf-vim'
@@ -15,6 +18,7 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex'
+"Plug 'neovim/nvim-lspconfig'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -41,10 +45,8 @@ set hidden
 set cursorline
 set title
 set incsearch
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark='hard'
 
-colorscheme gruvbox
+colorscheme srcery
 "hi Normal guibg=NONE ctermbg=NONE "for transparency 
 " tabs
 set tabstop=4     "number of spaces a tab renders as
@@ -53,8 +55,12 @@ set shiftwidth=4  "number of spaces to use for auto-indentation
 
 "==================== plugin: lightline ====================
 let g:lightline = {
-    \ 'colorscheme': 'gruvbox'
+            \ 'colorscheme': 'srcery'
     \}
+"==================== plugin: nvim-lspconfig ====================
+"lua << EOF
+"require 'lspconfig'.pyright.setup{}
+"EOF
 "==================== plugin: COC ====================
 let g:coc_global_extensions = [
             \ 'coc-vimtex',
@@ -68,7 +74,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><cr>    pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
 inoremap <expr><tab>   pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-imap <silent> <c-u>      <plug>(coc-snippets-expand)
+imap <silent> <c-u>      <plug>(coc-snippets-expand-jump)
 
 " =================== plugin: Ultisnips ====================
 let g:UltiSnipsExpandTrigger = '<nop>'
@@ -91,3 +97,4 @@ let g:nv_search_paths = ['~/notes/notes','~/vimwiki']
 nnoremap <silent> <c-s> :NV<CR>
 " =================== plugin: WhichKey ==================== 
 nnoremap <silent><leader> :WhichKey '<Space>'<CR>
+endif

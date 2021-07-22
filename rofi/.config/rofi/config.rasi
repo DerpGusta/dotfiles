@@ -1,5 +1,5 @@
 configuration {
-	theme:				"~/.config/rofi/themes/gruvbox-dark-solid-modified.rasi";
+	theme:				"~/.config/rofi/themes/srcery.rasi";
 	font:				"Iosevka Term 14";
 	combi-modi:			"drun,window,run";
 	width:				30;

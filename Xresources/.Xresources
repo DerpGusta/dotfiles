@@ -7,33 +7,40 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 Xcursor.size: 16
-! hard contrast 
- *background: #000000
- *background-transparent: #96000000
-!*background: #282828
-! soft contrast  *background: #32302f
- *foreground: #ebdbb2
-! Black + DarkGrey
- *color0:  #282828
- *color8:  #928374
-! DarkRed + Red
- *color1:  #cc241d
- *color9:  #fb4934
-! DarkGreen + Green
- *color2:  #98971a
- *color10: #b8bb26
-! DarkYellow + Yellow
- *color3:  #d79921
- *color11: #fabd2f
-! DarkBlue + Blue
- *color4:  #458588
- *color12: #83a598
-! DarkMagenta + Magenta
- *color5:  #b16286
- *color13: #d3869b
-! DarkCyan + Cyan
- *color6:  #689d6a
- *color14: #8ec07c
-! LightGrey + White
- *color7:  #a89984
- *color15: #ebdbb2
+! special
+*.foreground:   #fce8c3
+*.background:   #1c1b19
+*.cursorColor:  #fbb829
+
+! black
+*.color0:       #1c1b19
+*.color8:       #918175
+
+! red
+*.color1:       #ef2f27
+*.color9:       #f75341
+
+! green
+*.color2:       #519f50
+*.color10:      #98bc37
+
+! yellow
+*.color3:       #fbb829
+*.color11:      #fed06e
+
+! blue
+*.color4:       #2c78bf
+*.color12:      #68a8e4
+
+! magenta
+*.color5:       #e02c6d
+*.color13:      #ff5c8f
+
+! cyan
+*.color6:       #0aaeb3
+*.color14:      #2be4d0
+
+! white
+*.color7:       #baa67f
+*.color15:      #fce8c3
+
