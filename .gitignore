@@ -3,6 +3,3 @@
 .netrwhist
 mpdstate
 database
-neovim/*/
-!neovim/*/init.vim
-!neovim/*/ftplugin
