@@ -268,8 +268,18 @@ client.background       $black
 ################
 #   shortcuts  #
 ################
+set $zathura Zathura: (z)dark (w)light
+mode "$zathura" {
+    bindsym z exec zathura --config-dir=~/.config/zathura-dark/, mode "default"
+    bindsym w exec zathura, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+z mode "default"
+
+    }
 bindsym $mod+i exec firefox
-bindsym $mod+z exec zathura
+bindsym $mod+z mode "$zathura"
 bindsym $mod+comma exec udiskie-dmenu
 bindsym $mod+y exec $term -e ranger
 bindsym $mod+Shift+greater exec --no-startup-id mpc -p 6600 next && notify-send "Now Playing:" "$(mpc current)" 
@@ -298,7 +308,8 @@ smart_gaps on
 gaps inner 10
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
-exec --no-startup-id notify-send  "Don't forget to do your daily typing test\!\!"
+exec --no-startup-id notify-send  "Don't forget to do your daily typing test!!"
+exec --no-startup-id firefox --new-window --new-tab monkeytype.com
 exec --no-startup-id qbittorrent --no-splash
 exec --no-startup-id udiskie
 exec --no-startup-id keepassxc
@@ -307,7 +318,7 @@ exec --no-startup-id lxpolkit
 exec --no-startup-id unclutter --jitter 10
 exec --no-startup-id guake
 exec_always --no-startup-id picom -b
-exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/
+exec_always --no-startup-id nitrogen --set-auto ~/dotfiles/wallpapers/manjaro.jpg #--set-auto --random ~/dotfiles/wallpapers/
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id $term --class="pad" 
 for_window [instance="pad"] floating enable;

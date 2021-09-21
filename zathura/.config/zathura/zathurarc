@@ -47,6 +47,7 @@ set statusbar-fg               "#D0BFA1"
 
 set font "Iosevka 8"
 set selection-clipboard "clipboard"
+set selection-notification "false"
 set render-loading "false"
 set scroll-step 50
 set sandbox none 
