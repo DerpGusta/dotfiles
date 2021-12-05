@@ -71,7 +71,7 @@ set recolor-darkcolor           "#E0E0E0" #06
 # set statusbar-bg               "#1C1B19"
 # set statusbar-fg               "#D0BFA1"
 
-#set recolor-keephue             true      # keep original color
+set recolor-keephue             true      # keep original color
 
 set font "Iosevka 8"
 set selection-clipboard "clipboard"

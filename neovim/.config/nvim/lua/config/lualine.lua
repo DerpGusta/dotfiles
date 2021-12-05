@@ -34,10 +34,10 @@ vim.cmd("autocmd User LspProgressUpdate let &ro = &ro")
 
 require("lualine").setup({
   options = {
-    theme = "catppuccino",
+    theme = "moonfly",
     icons_enabled = true,
     section_separators = { "", "" },
-    component_separators = { "", "" },
+    component_separators = { "", "" }
     -- section_separators = {"", ""},
     -- component_separators = {"", ""}
   },

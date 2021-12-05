@@ -3,3 +3,4 @@
 .netrwhist
 mpdstate
 database
+neovim/**/plugin/*

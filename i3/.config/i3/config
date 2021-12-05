@@ -36,7 +36,7 @@ bindsym $mod+Shift+q kill
 # disable focus follows mouse
 focus_follows_mouse no
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run  
+bindsym $mod+d exec rofi -terminal $term -show run  
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -216,7 +216,7 @@ set $hard_black #121212
 
 
 # Colors                border        background  text          indicator child_border
-client.focused          $bright_black $xgray3     $yellow       $yellow   $orange
+client.focused          $bright_black $xgray3     $yellow       $yellow   $xgray4
 client.focused_inactive $xgray3       $xgray3     $bright_black $xgray3   $xgray3
 client.unfocused        $xgray1       $xgray1     $bright_black $xgray1   $xgray1
 client.urgent           $red          $xgray1     $red          $red      $red
@@ -308,8 +308,8 @@ smart_gaps on
 gaps inner 10
 # exec --no-startup-id blueman-tray
 # exec --no-startup-id barrier
-exec --no-startup-id notify-send  "Don't forget to do your daily typing test!!"
-exec --no-startup-id firefox --new-window --new-tab monkeytype.com
+# exec --no-startup-id notify-send  "Don't forget to do your daily typing test!!"
+# exec --no-startup-id firefox --new-tab monkeytype.com
 exec --no-startup-id qbittorrent --no-splash
 exec --no-startup-id udiskie
 exec --no-startup-id keepassxc
@@ -317,8 +317,8 @@ exec --no-startup-id dunst
 exec --no-startup-id lxpolkit
 exec --no-startup-id unclutter --jitter 10
 exec --no-startup-id guake
-exec_always --no-startup-id picom -b
-exec_always --no-startup-id nitrogen --set-auto ~/dotfiles/wallpapers/manjaro.jpg #--set-auto --random ~/dotfiles/wallpapers/
+exec_always --no-startup-id picom --experimental-backends
+exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/jelly.jpg #--set-auto --random ~/dotfiles/wallpapers/manjaro.jpg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id $term --class="pad" 
 for_window [instance="pad"] floating enable;
