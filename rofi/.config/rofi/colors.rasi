@@ -1,0 +1,39 @@
+/**
+ * Base16 Seti UI ROFI Color theme
+ *
+ * Authors
+ *  Scheme: 
+ *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
+ */
+
+* {
+    red:                         rgba ( 205, 63, 69, 100 % );
+    blue:                        rgba ( 85, 181, 219, 100 % );
+    lightfg:                     rgba ( 238, 238, 238, 100 % );
+    lightbg:                     rgba ( 40, 42, 43, 100 % );
+    foreground:                  rgba ( 214, 214, 214, 100 % );
+    background:                  rgba (21, 23, 24, 90 %);
+    clear:                       rgba (0,0,0,0 %);
+    background-color:            rgba ( 21, 23, 24, 0 % );
+    separatorcolor:              @background;
+    border-color:                @foreground;
+    selected-normal-foreground:  @lightbg;
+    selected-normal-background:  @blue;
+    selected-active-foreground:  @background;
+    selected-active-background:  @blue;
+    selected-urgent-foreground:  @background;
+    selected-urgent-background:  @red;
+    normal-foreground:           @foreground;
+    normal-background:           @clear;
+    active-foreground:           @blue;
+    active-background:           @lightbg;
+    urgent-foreground:           @red;
+    urgent-background:           @lightbg;
+    alternate-normal-foreground: @foreground;
+    alternate-normal-background: @clear;
+    alternate-active-foreground: @blue;
+    alternate-active-background: @lightbg;
+    alternate-urgent-foreground: @red;
+    alternate-urgent-background: @lightbg;
+}
+

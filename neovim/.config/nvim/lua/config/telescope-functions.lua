@@ -1,4 +1,4 @@
-local actions = require('telescope.actions')
+-- local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 
 if not package.loaded['telescope']
@@ -9,18 +9,25 @@ end
 M = {}
 
 M.dot_picker = function ()
-	local args ={
+	local opts ={
 		cwd = "~/.config/nvim/",
 		hidden = true
 	}
-	builtin.file_browser(args)
+	builtin.find_files(opts)
+end
+
+M.note_picker = function ()
+    local opts = {
+        search_dirs = { vim.g.wiki_root }
+    }
+    builtin.find_files(opts)
 end
 
 M.color_picker = function()
-	local args = {
+	local opts = {
 		enable_preview = true
 	}
-	builtin.colorscheme(args)
+	builtin.colorscheme(opts)
 end
 
 return M

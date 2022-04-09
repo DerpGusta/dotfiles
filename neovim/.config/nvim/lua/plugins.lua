@@ -104,6 +104,7 @@ return require("packer").startup(function(use)
     use {'folke/which-key.nvim', event = "BufWinEnter",config = function() require "config.which-key" end }
     -- Theme: color schemes
     -- use("tjdevries/colorbuddy.vim")
+    use{'rktjmp/lush.nvim'}
     use({
         "shaunsingh/nord.nvim",
         "shaunsingh/moonlight.nvim",
@@ -130,6 +131,8 @@ return require("packer").startup(function(use)
         -- "christianchiarulli/nvcode-color-schemes.vim",
         -- "Th3Whit3Wolf/one-nvim",
         -- event = "VimEnter",
+        "rebelot/kanagawa.nvim",
+        "metalelf0/jellybeans-nvim",
         config = function()
             require("theme")
         end,

@@ -1,0 +1,11 @@
+
+
+ +registers                                                                               <bs> go up one level <esc> close 
+
+"[No Name]" --No lines in buffer--
+
+
+E5108: Error executing lua ...line.nvim/lua/lualine/components/diagnostics/sources.lua:15: attempt to index field 'diagnostic' (a nil value)
+
+"[No Name]" --No lines in buffer--
+4 more lines

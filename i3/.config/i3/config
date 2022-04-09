@@ -72,6 +72,9 @@ bindsym $alt+h split h
 # split in vertical orientation
 bindsym $alt+v split v
 
+# toggle split direction
+bindsym $mod+q split toggle
+
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -281,7 +284,7 @@ mode "$zathura" {
 bindsym $mod+i exec firefox
 bindsym $mod+z mode "$zathura"
 bindsym $mod+comma exec udiskie-dmenu
-bindsym $mod+y exec $term -e ranger
+bindsym $mod+y exec $term ranger
 bindsym $mod+Shift+greater exec --no-startup-id mpc -p 6600 next && notify-send "Now Playing:" "$(mpc current)" 
 bindsym $mod+Shift+less exec --no-startup-id  mpc -p 6600 prev && notify-send "Now Playing:" "$(mpc current)"
 bindsym $mod+period exec --no-startup-id  mpc -p 6600 toggle
@@ -304,6 +307,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [class="keepassxc"] floating enable
 for_window [window_role="task_dialog"] floating enable
 new_window pixel 0
+new_float none
 smart_gaps on
 gaps inner 10
 # exec --no-startup-id blueman-tray
@@ -316,11 +320,7 @@ exec --no-startup-id keepassxc
 exec --no-startup-id dunst
 exec --no-startup-id lxpolkit
 exec --no-startup-id unclutter --jitter 10
-exec --no-startup-id guake
+exec --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id picom --experimental-backends
-exec_always --no-startup-id nitrogen --set-auto --random ~/dotfiles/wallpapers/jelly.jpg #--set-auto --random ~/dotfiles/wallpapers/manjaro.jpg
+exec_always --no-startup-id nitrogen --set-auto --restore # ~/dotfiles/wallpapers/1557959426614.png 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id $term --class="pad" 
-for_window [instance="pad"] floating enable;
-for_window [instance="pad"] resize set 1350 500;
-for_window [instance="pad"] move scratchpad;

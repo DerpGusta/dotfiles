@@ -4,7 +4,7 @@ local actions = require('telescope.actions')
 telescope.setup({
   extensions = { fzy_native = { override_generic_sorter = false, override_file_sorter = true } },
   defaults = {
-    mappings = { i = { ["<esc>"] = actions.close } },
+    -- mappings = { i = { ["<esc>"] = actions.close } },
     -- vimgrep_arguments = {
     --   'rg',
     --   '--color=never',
