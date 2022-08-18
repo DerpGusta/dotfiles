@@ -1,20 +1,8 @@
--- ~/.config/nvim
---Load main config
---local modules = {
---	"options",
---	"mappings",
---	"plugins",
---	"theme"
---}
---
---for i = 1, #modules, 1 do
---	pcall(require, modules[i])
---end
-vim.o.shadafile = 'NONE'
-require('options')
-require('mappings')
-require('plugins')
-require('theme')
-vim.o.shadafile = ''
-
---vim.cmd('cd /mnt/c/Users/SriHarshaTolety/Desktop/')
+require 'user.options'
+require 'user.keymaps'
+require 'user.plugins'
+require 'user.colorscheme'
+require 'user.lualine'
+require 'user.mini'.starter()
+require 'user.nvim-tree'
+--require 'user.autocommands'
