@@ -5,3 +5,4 @@ mpdstate
 database
 neovim/**/plugin/*
 __pycache__
+**/i3/workspace*

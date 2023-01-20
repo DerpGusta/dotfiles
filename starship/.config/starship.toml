@@ -1,0 +1,12 @@
+format = "$directory$character"
+right_format = "$all"
+add_newline = false
+
+[character]
+success_symbol = "[❯](yellow)[❯](yellow)[❯](yellow)"
+error_symbol = "[❯](red)[❯](red)[❯](red)"
+[line_break]
+disabled = true
+
+[golang]
+symbol = "ﳑ "

@@ -4,8 +4,7 @@ cd ~/dotfiles
 stow -v Xresources
 stow -v i3 
 stow -v kitty
-stow -v mpd
-stow -v ncmpcpp
+stow -v starship
 stow -v neovim 
 stow -v picom
 stow -v polybar 

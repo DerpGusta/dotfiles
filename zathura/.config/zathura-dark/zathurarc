@@ -17,65 +17,71 @@ set zoom-min 10
 set guioptions ""
 
 set recolor true
-set default-bg                  "#151515" #00
-set default-fg                  "#202020" #01
+set highlight-transparency     0.6
+# colors inspired by the carbonfox theme
+set default-bg              "#161616"
+set default-fg              "#f2f4f8"
 
-set statusbar-fg                "#B0B0B0" #04
-set statusbar-bg                "#202020" #01
+set statusbar-bg            "#161616"
+set statusbar-fg            "#f2f4f8"
 
-set inputbar-bg                 "#151515" #00 currently not used
-set inputbar-fg                 "#7585AA" #02
+set inputbar-bg             "#161616"
+set inputbar-fg             "#f2f4f8"
+#
+set notification-bg         "#f2f4f8"
+set notification-fg         "#161616"
 
-set notification-error-bg       "#AC4142" #08
-set notification-error-fg       "#151515" #00
+set notification-error-bg   "#ee5396"
+set notification-error-fg   "#161616"
 
-set notification-warning-bg     "#AC4142" #08
-set notification-warning-fg     "#151515" #00
+set notification-warning-bg "#25be6a"
+set notification-warning-fg "#161616"
 
-set highlight-color             "#F4BF75" #0A
-set highlight-active-color      "#6A9FB5" #0D
+set highlight-color         "#08bdda"
+set highlight-active-color  "#25be6a"
 
-set completion-highlight-fg     "#303030" #02
-set completion-highlight-bg     "#75B5AA" #0C
-set completion-bg               "#303030" #02
-set completion-fg               "#75B5AA" #0C
+set completion-bg           "#161616"
+set completion-fg           "#f2f4f8"
 
-set notification-bg             "#90A959" #0B
-set notification-fg             "#151515" #00
+set completion-highlight-fg "#161616"
+set completion-highlight-bg "#25be6a"
 
-set recolor-lightcolor          "#151515" #00
-set recolor-darkcolor           "#E0E0E0" #06
-# set recolor-lightcolor         "#1C1B19"
-# set recolor-darkcolor          "#D0BFA1"
-# set highlight-color            "#98BC37"
-# set highlight-active-color     "#519F50"
-
-# set completion-bg              "#262626"
-# set completion-fg              "#FCE8C3"
-# set completion-group-bg        "#1C1B19"
-# set completion-group-fg        "#D0BFA1"
-# set completion-highlight-bg    "#98BC37"
-# set completion-highlight-fg    "#262626"
-# set default-bg                 "#1C1B19"
-# set default-fg                 "#D0BFA1"
-# set inputbar-bg                "#121212"
-# set inputbar-fg                "#98BC37"
-# set notification-error-bg      "#1C1B19"
-# set notification-error-fg      "#FF5F00"
-# set notification-warning-bg    "#1C1B19"
-# set notification-warning-fg    "#FBB829"
-# set tabbar-bg                  "#1C1B19"
-# set tabbar-fg                  "#D0BFA1"
-# set tabbar-focus-bg            "#1C1B19"
-# set tabbar-focus-fg            "#98BC37"
-# set statusbar-bg               "#1C1B19"
-# set statusbar-fg               "#D0BFA1"
+set recolor-lightcolor      "#161616"
+set recolor-darkcolor       "#f2f4f8"
+#set default-bg                  "#151515" #00
+#set default-fg                  "#202020" #01
+#
+#set statusbar-fg                "#B0B0B0" #04
+#set statusbar-bg                "#202020" #01
+#
+#set inputbar-bg                 "#151515" #00 currently not used
+#set inputbar-fg                 "#7585AA" #02
+#
+#set notification-error-bg       "#AC4142" #08
+#set notification-error-fg       "#151515" #00
+#
+#set notification-warning-bg     "#AC4142" #08
+#set notification-warning-fg     "#151515" #00
+#
+#set highlight-color             "#994CFF" #0A
+#set highlight-fg                "#FFFFFF"
+#set highlight-active-color      "#6A9FB5" #0D
+#
+#set completion-highlight-fg     "#303030" #02
+#set completion-highlight-bg     "#75B5AA" #0C
+#set completion-bg               "#303030" #02
+#set completion-fg               "#75B5AA" #0C
+#
+#set notification-bg             "#90A959" #0B
+#set notification-fg             "#151515" #00
+#
+#set recolor-lightcolor          "#151515" #00
+#set recolor-darkcolor           "#E0E0E0" #06
 
 set recolor-keephue             true      # keep original color
 
-set font "Iosevka 8"
+set font "Iosevka Nerd Font 10"
 set selection-clipboard "clipboard"
 set selection-notification "false"
 set render-loading "false"
-set scroll-step 50
-set sandbox none 
+#set scroll-step 50
