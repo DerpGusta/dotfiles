@@ -1,0 +1,131 @@
+* {
+base00: #161616; 
+base01: #262626; 
+base02: #393939; 
+base03: #525252; 
+base04: #dde1e6; 
+base05: #f2f4f8; 
+base06: #ffffff; 
+base07: #08bdba;
+base08: #3ddbd9; 
+base09: #78a9ff; 
+base0A: #ee5396; 
+base0B: #33b1ff; 
+base0C: #ff7eb6; 
+base0D: #42be65; 
+base0E: #be95ff; 
+base0F: #82cfff;
+
+//black
+color0:       @base00;
+color8:       @base03;
+
+//red
+color1:       @base08;
+color9:       @base08;
+
+//green
+color2:       @base0B;
+color10:      @base0B;
+
+//yellow
+color3:       @base0A;
+color11:      @base0A;
+
+//blue
+color4:       @base0D;
+color12:      @base0D;
+
+//magenta
+color5:       @base0E;
+color13:      @base0E;
+
+//cyan
+color6:       @base0C;
+color14:      @base0C;
+
+//white
+color7:       @base05;
+color15:      @base07;
+
+foreground:   @base05;
+background:   @base00;
+cursorColor:  @base05;
+selection-background:   @base03;
+
+}
+
+* {
+background-color: @background;
+foreground-color: @foreground;
+text-color:       @cursorColor;
+border-color:     @selection-background;
+transparency:     "real";
+margin: 0;
+padding: 0;
+spacing: 0;
+}
+
+window {
+width: 50%;
+border: 4px;
+background-color: @background-color;
+children: [inputbar, listview];
+}
+
+inputbar {
+padding: 10px;
+margin: 0 0 5px 0;
+background-color: transparent;
+border: 0px;
+border-color: @selection-background;
+children: [ prompt, entry ];
+}
+
+entry {
+background-color: transparent;
+}
+
+prompt {
+background-color: transparent;
+font: "Symbols Nerd Font 11";
+vertical-align: 0.50;
+}
+
+listview{
+fixed-height: true;
+background-color: transparent;
+border: 0px;
+border-color: inherit;
+lines: 16;
+}
+
+element.normal{
+background-color: transparent;
+text-color: @fg;
+}
+element.selected.normal {
+background-color: @selection-background;
+text-color: @selection-foreground;
+}
+
+element {
+padding: 5 5;
+children: [ element-icon, element-text ];
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        24px;
+    cursor:                      pointer;
+}

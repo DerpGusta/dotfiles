@@ -2,6 +2,7 @@ return {
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    lazy = false,
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
@@ -16,7 +17,6 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    event = "VimEnter",
     dependencies = {"williamboman/mason.nvim"},
     opts = {
       ensure_installed = {
@@ -60,7 +60,6 @@ return {
     },
     {
       'williamboman/mason.nvim',
-      event = "VimEnter",
       --lazy = false, -- see https://github.com/williamboman/mason.nvim#setup
       --cmd = Mason,
       --keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
