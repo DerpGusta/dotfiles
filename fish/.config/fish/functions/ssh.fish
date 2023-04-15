@@ -1,3 +1,4 @@
-function ssh --description 'alias ssh=kitty +kitten ssh'
-  kitty +kitten ssh $argv; 
+function ssh --description 'alias ssh set TERM xterm; command ssh'
+  set TERM xterm; command ssh $argv
+        
 end

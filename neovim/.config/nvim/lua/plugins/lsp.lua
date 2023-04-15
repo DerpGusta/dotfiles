@@ -23,7 +23,9 @@ return {
         'ansiblels',
         'dockerls',
         'jsonls',
-        'sumneko_lua',
+        'yamlls',
+        'lua_ls',
+        'gopls',
         'pyright',
         'rust_analyzer',
         'terraformls',
@@ -44,8 +46,8 @@ return {
         --["rust_analyzer"] = function ()
           --    require("rust-tools").setup {}
           --end
-          ["sumneko_lua"] = function ()
-            require("lspconfig")["sumneko_lua"].setup {
+          ["lua_ls"] = function ()
+            require("lspconfig")["lua_ls"].setup {
               settings = {
                 Lua = {
                   diagnostics = {
@@ -75,18 +77,28 @@ return {
       dependencies = {
         'williamboman/mason.nvim',
       },
+      lazy = false,
       cmd = {'MasonToolsInstall','MasonToolsUpdate'},
       opts = {
         ensure_installed = {
           -- LSP Servers
           'ansible-language-server',
+          'bash-language-server',
           'dockerfile-language-server',
+          'gopls',
+          'json-lsp',
+          'golangci-lint-langserver',
+          'yaml-language-server',
           'lua-language-server',
-          'python-lsp-server',
+          'pyright',
           'terraform-ls',
           'rust-analyzer',
           -- formatters, linters
           'rustfmt',
+          'goimports',
+          'golangci-lint',
+          'shellcheck',
+          'tflint',
         },
         auto_update = true,
       }

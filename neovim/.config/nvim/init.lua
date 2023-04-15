@@ -18,7 +18,7 @@ require("lazy").setup("plugins",
     lazy = true,
   },
     install = {
-      colorscheme = {"carbonfox", "habamax"}
+      colorscheme = {"catppuccin", "habamax"}
     },
     performance = {
       rtp = {

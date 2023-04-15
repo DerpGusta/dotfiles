@@ -1,12 +1,21 @@
 return {
-  "nyoom-engineering/oxocarbon.nvim",
+  "catppuccin/nvim", name = "catppuccin",
   lazy = false,
   priority = 1000,
   config = function()
     vim.opt.background = "dark"
-    vim.cmd[[colorscheme oxocarbon]]
+    vim.cmd[[colorscheme catppuccin-mocha]]
   end
 }
+-- return {
+--   "nyoom-engineering/oxocarbon.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     vim.opt.background = "dark"
+--     vim.cmd[[colorscheme oxocarbon]]
+--   end
+-- }
 -- return {
 --   "EdenEast/nightfox.nvim",
 --   lazy = false,

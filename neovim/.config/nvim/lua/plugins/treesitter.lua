@@ -5,8 +5,9 @@ return {
   opts = {
     sync_install = false,
     auto_install = false,
-    highlight = { enable = true },
+    highlight = { enable = true, addtitional_vim_regex_highlighting = true },
     indent = { enable = false }, -- disabled since it is experimental as of now
+    incremental_selection = { enable = true },
     ensure_installed = {
       "bash",
       "help",

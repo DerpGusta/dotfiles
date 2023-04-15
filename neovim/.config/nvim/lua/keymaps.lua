@@ -1,7 +1,10 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
--- Normal mode
+-- TERMINAL MODE
+map("t", "<leader><Esc>", "<C-\\><C-n>", opts)
+
+-- NORMAL MODE
 
 -- Telescope select files
 map("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
@@ -15,8 +18,6 @@ map("n", "<C-Right>", ":vertical resize -2<cr>", opts)
 -- Move current line / block with Alt-j/k ala vscode.
 map("n", "<A-j>", ":m .+1<cr>==", opts)
 map("i", "<A-j>", "<Esc>:m .+1<cr>==gi", opts)
-
--- Move current line / block with Alt-j/k ala vscode.
 map("n", "<A-k>", ":m .-2<cr>==", opts)
 map("i", "<A-k>", "<Esc>:m .-2<cr>==gi", opts)
 
@@ -27,9 +28,11 @@ map("n", "<Esc>", ":noh<cr>", opts)
 map("n", "j", "gj", opts)
 map("n", "k", "gk", opts)
 
--- Insert mode
+-- list of buffers
 
--- Visual mode
+-- INSERT MODE
+
+-- VISUAL MODE
 
 -- Search for visually selected text
 map("v", "//", 'y/<C-R>"<cr>', opts)
@@ -37,7 +40,7 @@ map("v", "//", 'y/<C-R>"<cr>', opts)
 -- Have the same buffer on clipboard for multiple pastes
 map("v", "p", "pgvy", opts)
 
--- Visual block mode
+-- VISUAL BLOCK MODE
 
 -- Move current line / block with Alt-j/k ala vscode.
 map("x", "<A-j>", ":m '>+1<cr>gv-gv", opts)

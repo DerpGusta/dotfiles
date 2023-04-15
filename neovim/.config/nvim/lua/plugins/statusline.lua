@@ -5,12 +5,12 @@ return  {
   lazy = false,
   opts = {
     options = {
-      theme = "auto",
+      theme = "catppuccin",
       global_status = true,
       icons_enabled = true,
     --  component_separators = '|',
     --  section_separators = '',
-      disabled = {"neo-tree"},
+      disabled_filetypes = {"neo-tree"},
       sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff','diagnostics'},
