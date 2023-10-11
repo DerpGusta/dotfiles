@@ -1,20 +1,38 @@
 * {
-base00: #161616; 
-base01: #262626; 
-base02: #393939; 
-base03: #525252; 
-base04: #dde1e6; 
-base05: #f2f4f8; 
-base06: #ffffff; 
-base07: #08bdba;
-base08: #3ddbd9; 
-base09: #78a9ff; 
-base0A: #ee5396; 
-base0B: #33b1ff; 
-base0C: #ff7eb6; 
-base0D: #42be65; 
-base0E: #be95ff; 
-base0F: #82cfff;
+//solarized
+base00: #103c48;
+base01: #184956;
+base02: #2d5b69;
+base03: #72898f;
+base04: #72898f;
+base05: #adbcbc;
+base06: #cad8d9;
+base07: #cad8d9;
+base08: #fa5750;
+base09: #ed8649;
+base0A: #dbb32d;
+base0B: #75b938;
+base0C: #41c7b9;
+base0D: #4695f7;
+base0E: #af88eb;
+base0F: #f275be;
+// oxocarbon
+//base00: #161616;
+//base01: #262626;
+//base02: #393939;
+//base03: #525252;
+//base04: #dde1e6;
+//base05: #f2f4f8;
+//base06: #ffffff;
+//base07: #08bdba;
+//base08: #3ddbd9;
+//base09: #78a9ff;
+//base0A: #ee5396;
+//base0B: #33b1ff;
+//base0C: #ff7eb6;
+//base0D: #42be65;
+//base0E: #be95ff;
+//base0F: #82cfff;
 
 //black
 color0:       @base00;
@@ -51,7 +69,7 @@ color15:      @base07;
 foreground:   @base05;
 background:   @base00;
 cursorColor:  @base05;
-selection-background:   @base03;
+selection-background:   @base02;
 
 }
 
@@ -67,7 +85,7 @@ spacing: 0;
 }
 
 window {
-width: 50%;
+width: 40%;
 border: 4px;
 background-color: @background-color;
 children: [inputbar, listview];
@@ -88,8 +106,9 @@ background-color: transparent;
 
 prompt {
 background-color: transparent;
-font: "Symbols Nerd Font 11";
-vertical-align: 0.50;
+//font: "Symbols Nerd Font 10";
+padding: 2px;
+//vertical-align: 0.50;
 }
 
 listview{
@@ -97,16 +116,16 @@ fixed-height: true;
 background-color: transparent;
 border: 0px;
 border-color: inherit;
-lines: 16;
+lines: 8;
 }
 
 element.normal{
 background-color: transparent;
-text-color: @fg;
+text-color: @foreground;
 }
 element.selected.normal {
 background-color: @selection-background;
-text-color: @selection-foreground;
+text-color: @foreground;
 }
 
 element {
@@ -128,4 +147,5 @@ element-icon {
     text-color:                  inherit;
     size:                        24px;
     cursor:                      pointer;
+    margin:                      0 7px 0 0;
 }

@@ -11,7 +11,7 @@ then
       zathura --config-dir="~/.config/zathura-dark" "$BOOK";
       exit 0;
     else
-      zathura "$BOOK";
+      zathura --config-dir="~/.config/zathura" "$BOOK";
       echo "$BOOK"
       exit 0;
     fi

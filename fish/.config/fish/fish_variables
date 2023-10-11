@@ -1,6 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export FZF_DEFAULT_OPTS:\x2d\x2dcolor\x3dbg\x2b\x3a\x23313244\x2cbg\x3a\x231e1e2e\x2cspinner\x3a\x23f5e0dc\x2chl\x3a\x23f38ba8\x20\x2d\x2dcolor\x3dfg\x3a\x23cdd6f4\x2cheader\x3a\x23f38ba8\x2cinfo\x3a\x23cba6f7\x2cpointer\x3a\x23f5e0dc\x20\x2d\x2dcolor\x3dmarker\x3a\x23f5e0dc\x2cfg\x2b\x3a\x23cdd6f4\x2cprompt\x3a\x23cba6f7\x2chl\x2b\x3a\x23f38ba8
+SETUVAR --export FZF_DEFAULT_OPTS:\x0a\x20\x20\x2d\x2dcolor\x3dbg\x2b\x3a\x23073642\x2cbg\x3a\x23002b36\x2cspinner\x3a\x23719e07\x2chl\x3a\x23586e75\x0a\x20\x20\x2d\x2dcolor\x3dfg\x3a\x23839496\x2cheader\x3a\x23586e75\x2cinfo\x3a\x23cb4b16\x2cpointer\x3a\x23719e07\x0a\x20\x20\x2d\x2dcolor\x3dmarker\x3a\x23719e07\x2cfg\x2b\x3a\x23839496\x2cprompt\x3a\x23719e07\x2chl\x2b\x3a\x23719e07\x0a
 SETUVAR --export --path GOPATH:/home/derp/go
 SETUVAR --export MOZ_USE_XINPUT2:1
 SETUVAR --export QT_QPA_PLATFORMTHEME:qt5ct
@@ -31,7 +31,7 @@ SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
 SETUVAR fish_greeting:
-SETUVAR fish_key_bindings:fish_vi_key_bindings
+SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_pager_color_background:\x1d
 SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
@@ -45,4 +45,4 @@ SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/derp/\x2ecargo/bin\x1e/home/derp/go/bin
+SETUVAR fish_user_paths:/home/derp/\x2elocal/bin\x1e/home/derp/\x2elocal/share/nvim/mason/bin\x1e/home/derp/\x2ecargo/bin\x1e/home/derp/go/bin

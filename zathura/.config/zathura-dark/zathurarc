@@ -10,73 +10,56 @@ set pages-per-row 1
 #stop at page boundries
 set scroll-page-aware "true"
 set scroll-full-overlap 0.01
-set scroll-step 100
+set scroll-step 40
 
 #zoom settings
 set zoom-min 10
 set guioptions ""
 
-set recolor true
-set highlight-transparency     0.6
-# colors inspired by the carbonfox theme
-set default-bg              "#161616"
-set default-fg              "#f2f4f8"
+#set recolor false
+set highlight-transparency     0.8
 
-set statusbar-bg            "#161616"
-set statusbar-fg            "#f2f4f8"
+# zathurarc-dark
+set notification-error-bg       "#586e75" # base01  # seem not work
+set notification-error-fg       "#dc322f" # red
+set notification-warning-bg     "#586e75" # base01
+set notification-warning-fg     "#dc322f" # red
+set notification-bg             "#586e75" # base01
+set notification-fg             "#b58900" # yellow
 
-set inputbar-bg             "#161616"
-set inputbar-fg             "#f2f4f8"
-#
-set notification-bg         "#f2f4f8"
-set notification-fg         "#161616"
+set completion-group-bg         "#002b36" # base03
+set completion-group-fg         "#839496" # base0
+set completion-bg               "#073642" # base02
+set completion-fg               "#93a1a1" # base1
+set completion-highlight-bg     "#586e75" # base01
+set completion-highlight-fg     "#eee8d5" # base2
 
-set notification-error-bg   "#ee5396"
-set notification-error-fg   "#161616"
+# Define the color in index mode
+set index-bg                   "#073642" # base02
+set index-fg                   "#93a1a1" # base1
+set index-active-bg             "#586e75" # base01
+set index-active-fg             "#eee8d5" # base2
 
-set notification-warning-bg "#25be6a"
-set notification-warning-fg "#161616"
+set inputbar-bg                 "#586e75" # base01
+set inputbar-fg                 "#eee8d5" # base2
 
-set highlight-color         "#08bdda"
-set highlight-active-color  "#25be6a"
+set statusbar-bg                "#073642" # base02
+set statusbar-fg                "#93a1a1" # base1
 
-set completion-bg           "#161616"
-set completion-fg           "#f2f4f8"
+set highlight-color             "#657b83" # base00  # hightlight match when search keyword(vim's /)
+set highlight-active-color      "#268bd2" # blue
 
-set completion-highlight-fg "#161616"
-set completion-highlight-bg "#25be6a"
+set default-bg                  "#073642" # base02
+set default-fg                  "#93a1a1" # base1
+# set render-loading              true
+# set render-loading-fg           "#073642" # base02
+# set render-loading-bg           "#073642" # base02
 
-set recolor-lightcolor      "#161616"
-set recolor-darkcolor       "#f2f4f8"
-#set default-bg                  "#151515" #00
-#set default-fg                  "#202020" #01
-#
-#set statusbar-fg                "#B0B0B0" #04
-#set statusbar-bg                "#202020" #01
-#
-#set inputbar-bg                 "#151515" #00 currently not used
-#set inputbar-fg                 "#7585AA" #02
-#
-#set notification-error-bg       "#AC4142" #08
-#set notification-error-fg       "#151515" #00
-#
-#set notification-warning-bg     "#AC4142" #08
-#set notification-warning-fg     "#151515" #00
-#
-#set highlight-color             "#994CFF" #0A
-#set highlight-fg                "#FFFFFF"
-#set highlight-active-color      "#6A9FB5" #0D
-#
-#set completion-highlight-fg     "#303030" #02
-#set completion-highlight-bg     "#75B5AA" #0C
-#set completion-bg               "#303030" #02
-#set completion-fg               "#75B5AA" #0C
-#
-#set notification-bg             "#90A959" #0B
-#set notification-fg             "#151515" #00
-#
-#set recolor-lightcolor          "#151515" #00
-#set recolor-darkcolor           "#E0E0E0" #06
+# Recolor book content's color
+set recolor                     true
+set recolor-lightcolor          "#073642" # base02
+set recolor-darkcolor           "#93a1a1" # base1
+
 
 set recolor-keephue             true      # keep original color
 
@@ -84,4 +67,5 @@ set font "Iosevka Nerd Font 10"
 set selection-clipboard "clipboard"
 set selection-notification "false"
 set render-loading "false"
+set sandbox none
 #set scroll-step 50

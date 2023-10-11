@@ -1,0 +1,25 @@
+{
+    "workspace.library": [
+        "/home/derp/.config/nvim",
+        "/home/derp/.local/share/nvim/lazy/lazy.nvim",
+        "/home/derp/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/derp/.local/share/nvim/lazy/cmp-nvim-lsp",
+        "/home/derp/.local/share/nvim/lazy/mason-lspconfig.nvim",
+        "/home/derp/.local/share/nvim/lazy/mason.nvim",
+        "/home/derp/.local/share/nvim/lazy/mason-tool-installer.nvim",
+        "/home/derp/.local/share/nvim/lazy/Comment.nvim",
+        "/home/derp/.local/share/nvim/lazy/nightfox.nvim",
+        "/home/derp/.local/share/nvim/lazy/alpha-nvim",
+        "/home/derp/.local/share/nvim/lazy/gruvbox.nvim",
+        "/home/derp/.local/share/nvim/lazy/tokyonight.nvim",
+        "/home/derp/.local/share/nvim/lazy/solarized.nvim",
+        "/home/derp/.local/share/nvim/lazy/nvim-web-devicons",
+        "/home/derp/.local/share/nvim/lazy/oil.nvim",
+        "/usr/share/nvim/runtime",
+        "/usr/lib/nvim",
+        "/home/derp/.local/state/nvim/lazy/readme",
+        "/home/derp/.local/share/nvim/lazy/cmp-nvim-lsp/after",
+        "/home/derp/.local/share/nvim/lazy/solarized.nvim/after",
+        "${3rd}/luassert/library"
+    ]
+}

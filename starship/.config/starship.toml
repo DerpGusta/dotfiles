@@ -1,12 +1,19 @@
+add_newline = true
 format = "$directory$character"
-right_format = "$all"
-add_newline = false
 
 [character]
-success_symbol = "[❯](yellow)[❯](yellow)[❯](yellow)"
-error_symbol = "[❯](red)[❯](red)[❯](red)"
-[line_break]
+success_symbol = "[❯❯](green)"
+error_symbol = "[❯❯](red)"
+vimcmd_symbol = '[\[N\]](bold grey)'
+vimcmd_replace_symbol = '[\[R\]](bold purple)'
+vimcmd_replace_one_symbol = '[\[R\]](bold purple)'
+vimcmd_visual_symbol = '[\[V\]](bold yellow)'
+
+[battery]
 disabled = true
 
+[line_break]
+disabled = false
+
 [golang]
-symbol = "ﳑ "
+symbol = " "
