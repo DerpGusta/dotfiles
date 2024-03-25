@@ -1,5 +1,5 @@
-return {{
-  "jose-elias-alvarez/null-ls.nvim",
+return { {
+  "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "nvim-lua/plenary.nvim"
@@ -13,8 +13,8 @@ return {{
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.code_actions.shellcheck,
-      } }
-    end
-  },
-  }
+      }
+    }
+  end
+},
+}

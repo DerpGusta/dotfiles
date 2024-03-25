@@ -18,7 +18,7 @@ return {
 			start_in_insert = true,
 			hide_numbers = true,
 			persist_size = true,
-			direction = "horizontal",
+			direction = "vertical",
 			close_on_exit = true,
 		})
 	end,

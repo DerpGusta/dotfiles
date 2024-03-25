@@ -1,17 +1,33 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPost", "BufNewFile" },
-  version = false,
-  build = ":TSUpdate",
-  main = "nvim-treesitter.configs",
-  opts = {
-    highlight = { enable = true },
-    ensure_installed = {
-      'lua',
-      'terraform',
-      'markdown',
-      'markdown_inline',
-      'html',
-    }
-  }
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    version = false,
+    build = ":TSUpdate",
+    main = "nvim-treesitter.configs",
+    opts = {
+      highlight = { enable = true },
+
+      ensure_installed = {
+        'lua',
+        'terraform',
+        'markdown',
+        'markdown_inline',
+        'html',
+        'vim',
+        'vimdoc',
+        'query'
+      },
+
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<leader>ss",
+          node_incremental = "<leader>si",
+          scope_incremental = "<leader>sc",
+          node_decremental  = "<leader>sd",
+        },
+      },
+    },
+  },
 }

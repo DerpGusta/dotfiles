@@ -19,6 +19,11 @@ return {
 				},
 				repo = {
 					shorten_path = true,
+          list = {
+            fd_opts = {
+              "--no-ignore-vcs",
+            },
+          },
 				},
 			},
 		},
@@ -28,8 +33,8 @@ return {
 			{ "<leader>tc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
 			{ "<leader>tt", "<cmd>Telescope <cr>", desc = "Builtins" },
 			{ "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-			{ "<leader>y", "<cmd>Telescope yaml_schema<cr>", desc = "Yaml Schema" },
-			{ "<leader>s", "<cmd>Telescope lsp_document_symbols<cr>", desc = "LSP Symbols" },
+			{ "<leader>ty", "<cmd>Telescope yaml_schema<cr>", desc = "Yaml Schema" },
+			-- { "<leader>s", "<cmd>Telescope lsp_document_symbols<cr>", desc = "LSP Symbols" },
 		},
 	},
 	{
@@ -61,10 +66,10 @@ return {
 		end,
 		keys = {
 			{
-				"<leader>p",
+				"<leader>tg",
 				function()
 					require("telescope").extensions.repo.list(require("telescope.themes").get_ivy({
-						file_ignore_patterns = { "%..*/", "/%.cache/", "/%.local/" },
+						file_ignore_patterns = { "/%.cache/", "/%.local/" },
 					}))
 				end,
 				desc = "Browse Projects",

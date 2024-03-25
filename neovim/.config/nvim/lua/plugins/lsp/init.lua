@@ -17,7 +17,9 @@ return {
 				"terraform-ls",
 				"yaml-language-server",
         "gopls",
+        "ruby_ls",
 				-- formatters, linters
+        "ansible-lint",
 				"black",
 				"prettierd",
 				"shellcheck",
@@ -64,7 +66,7 @@ return {
 				end
 				nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 				nmap("<leader>f", vim.lsp.buf.format, "Format buffer")
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, "LSP: Signature help")
+				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {desc= "LSP: Signature help"})
 			end
 			local lspopts = { capabilities = capabilities, on_attach = on_attach }
 			require("mason-lspconfig").setup(opts)

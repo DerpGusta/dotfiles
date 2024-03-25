@@ -6,7 +6,7 @@ return {
     priority = 1000,
     config = function()
       require("vscode").setup()
-      require("vscode").load()
+    --   require("vscode").load()
     end,
   },
   {
@@ -45,22 +45,32 @@ return {
       -- require("bamboo").load()
     end,
   },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    event = "VeryLazy",
-    lazy = true,
-    priority = 100,
-    config = function()
-      require("catppuccin").setup({
-        flavour = "latte", -- latte, frappe, macchiato, mocha
-        background = { -- :h background
-          light = "latte",
-          dark = "mocha",
-      },
-      })
-      -- vim.cmd([[colorscheme catppuccin]])
-    end,
+  { "miikanissi/modus-themes.nvim",
+  event = "VeryLazy",
+  lazy = true,
+  priority = 10,
+  config = function ()
+    require("modus-themes").setup({
+    })
+  -- vim.cmd([[colorscheme modus]])
+  end
+},
+{
+  "catppuccin/nvim",
+  name = "catppuccin",
+  event = "VeryLazy",
+  lazy = true,
+  priority = 100,
+  config = function()
+    require("catppuccin").setup({
+      flavour = "latte", -- latte, frappe, macchiato, mocha
+      background = { -- :h background
+      light = "latte",
+      dark = "mocha",
+    },
+  })
+  -- vim.cmd([[colorscheme catppuccin]])
+end,
   },
   {
     "projekt0n/github-nvim-theme",
@@ -79,16 +89,28 @@ return {
     opts = {},
   },
   {
-    "ellisonleao/gruvbox.nvim",
+    "sainnhe/gruvbox-material",
     event = "VeryLazy",
     lazy = true,
     priority = 100,
     config = function()
-      require("gruvbox").setup({
-        contrast = "hard",
-      })
-      -- vim.cmd[[colorscheme gruvbox]]
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_foreground = 'original'
+      vim.g.gruvbox_material_disable_italic_comment = 1
+      -- vim.cmd[[colorscheme gruvbox-material]]
     end,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    priority = 100,
+    config = function()
+    require("gruvbox").setup({
+      contrast="hard",
+    })
+    vim.cmd[[colorscheme gruvbox]]
+    end
   },
   { "EdenEast/nightfox.nvim", lazy = false, event = "VeryLazy" },
 }

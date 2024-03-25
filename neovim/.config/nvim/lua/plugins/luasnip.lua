@@ -17,7 +17,7 @@ return {
       {
         "<C-j>",
         function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or ""
         end,
         expr = true, silent = true, mode = "i",
       },

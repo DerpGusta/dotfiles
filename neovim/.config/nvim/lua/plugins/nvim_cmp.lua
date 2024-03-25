@@ -17,7 +17,12 @@ return {
     )
     return {
       completion = {
+        -- autocomplete = false,
+        keyword_length = 3,
         completeopt = "menu,menuone,noinsert,noselect",
+      },
+      matching = {
+        disallow_fullfuzzy_matching = true,
       },
       snippet = {
         expand = function(args)

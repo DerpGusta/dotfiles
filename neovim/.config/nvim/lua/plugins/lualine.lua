@@ -1,9 +1,9 @@
 return {
   'nvim-lualine/lualine.nvim',
-  event = "VeryLazy",
+  lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons" , "Mofiqul/vscode.nvim"},
   opts = {
-    theme = 'vscode',
+    theme = 'gruvbox',
     options = { section_separators = '', component_separators = '' },
     disabled_filetypes = {
       statusline = {'starter','quickfix','alpha'}
