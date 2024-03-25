@@ -1,5 +1,6 @@
 if vim.g.neovide then
-  vim.o.guifont = "IosevkaTerm Nerd Font:h11"
+  vim.o.guifont = "JetBrainsMono Nerd Font:h10"
+  -- vim.o.linespacing = 0 -- use a negative number for reducing space between characters
   vim.g.neovide_remember_window_size = true
 
   vim.g.neovide_refresh_rate = 60
@@ -14,18 +15,6 @@ if vim.g.neovide then
   vim.g.neovide_underline_automatic_scaling = true
   vim.g.neovide_scale_factor = 1.0
 
-  -- Copy/paste with system clipboard
-
-  vim.keymap.set('v', '<M-c>', '"+y') -- Copy
-  vim.keymap.set('n', '<M-v>', '"+P') -- Paste normal mode
-  vim.keymap.set('v', '<M-v>', '"+P') -- Paste visual mode
-  vim.keymap.set('c', '<M-v>', '<C-R>+') -- Paste command mode
-  vim.keymap.set('i', '<M-v>', '<ESC>l"+Pli') -- Paste insert mode
-
-  -- vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
-  -- vim.keymap.set(  'n',        'gp', '"+p', { desc = 'Paste from system clipboard' })
-  -- -- Paste in Visual with `P` to not copy selected text (`:h v_P`)
-  -- vim.keymap.set(  'x',        'gp', '"+P', { desc = 'Paste from system clipboard' })
   --
   -- Increase font size
   vim.keymap.set("n", "<C-=>", function()
@@ -53,11 +42,11 @@ if vim.g.neovide then
       file:close()
       -- Find the position of the first period and substring up to the period if it exists
       line = string.sub(line, 1, string.find(line, "%.") - 1 or #line + 1)
-      if line == "solarized-dark" then
+      if line == "gruvbox-dark" then
         vim.schedule(function()
           vim.o.background = "dark"
         end)
-      elseif line == "solarized-light" then
+      elseif line == "gruvbox-light" then
         vim.schedule(function()
           vim.o.background = "light"
         end)
@@ -103,6 +92,7 @@ if vim.g.neovide then
   watch_with_function(filepath, bg_toggle, error_handler, { is_oneshot = false })
   bg_toggle()
 end
+
 local indent = 2
 local scroll = 2
 
@@ -120,8 +110,9 @@ vim.o.updatetime = 200 -- used by CursorHold event
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.termguicolors = true
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.foldcolumn= '1'
+vim.o.conceallevel = 2
 vim.o.foldlevel = 99 -- Using ufo provider need a large value (sourced from docs)
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
@@ -149,6 +140,7 @@ local opts = {
   spec = {
     { import = "plugins" },
     { import = "plugins.lsp" },
+    { import = "plugins.treesitter" },
   },
   defaults = { lazy = true },
   install = { missing = true, colorscheme = { "habamax" } },
@@ -160,13 +152,7 @@ local opts = {
   checker = { enabled = true, notify = false },
   change_detection = { notify = false },
   performance = {
-    rtp = {
-      disabled_plugins = {
-        "gzip",
-        "tarPlugin",
-        "zipPlugin",
-      },
-    },
+    rtp = {},
   },
 }
 require("lazy").setup(opts)

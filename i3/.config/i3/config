@@ -38,7 +38,7 @@ bindsym $mod+Shift+q kill
 # disable focus follows mouse
 focus_follows_mouse no
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -terminal $term -matching fuzzy -show drun
+bindsym $mod+d exec rofi -terminal $term -show drun -icon-theme "Gruvbox-Material-Dark"
 # emoji picker
 bindsym $mod+period exec rofi -modi emoji -show emoji
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -291,13 +291,14 @@ mode "$zathura" {
 
     }
 bindsym $mod+i exec firefox
-bindsym $mod+n exec NVIM_APPNAME=AstroNvim neovide --maximized 
+# bindsym $mod+n exec NVIM_APPNAME=AstroNvim neovide --maximized 
+bindsym $mod+n exec neovide --maximized 
 bindsym $mod+o exec obsidian
 bindsym $mod+Print exec flameshot gui
 bindsym $mod+z mode "$zathura"
 bindsym $mod+p exec ~/.config/rofi/scripts/sioyek.sh
 bindsym $mod+comma exec udiskie-dmenu
-bindsym $mod+y exec $term start -- ranger
+bindsym $mod+y exec $term start -- yazi
 bindsym $mod+Shift+greater exec --no-startup-id mpc -p 6600 next
 bindsym $mod+Shift+less exec --no-startup-id  mpc -p 6600 prev
 bindsym $mod+Shift+period exec --no-startup-id  mpc -p 6600 toggle
@@ -332,7 +333,7 @@ exec --no-startup-id  ~/dotfiles/scripts/theme.sh
 exec --no-startup-id udiskie
 exec --no-startup-id greenclip daemon
 exec --no-startup-id dunst
-exec --no-startup-id lxpolkit
+exec --no-startup-id lxqt-policykit-agent
 exec --no-startup-id unclutter --jitter 10
 exec --no-startup-id xrdb ~/.Xresources
 # Become the flash! (copied from https://github.com/ryanpcmcquen/linuxTweaks/blob/master/.xfceSetup.sh)
@@ -348,7 +349,8 @@ exec --no-startup-id ~/.config/i3/i3-restore/i3-restore
 exec --no-startup-id keepassxc
 # exec --no-startup-id safeeyes
 # exec --no-startup-id copyq
-exec --no-startup-id xsel
+# exec --no-startup-id xsel
+exec --no-startup-id xclip
 # for_window [instance="copyq"] floating enable, move position center
 # for_window [instance="copyq"] resize set 1200 768
 # for_window [instance="copyq"] border pixel 5
