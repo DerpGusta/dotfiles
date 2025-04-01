@@ -14,5 +14,5 @@ trap 'unset I3_RESTORE_SUBPROCESS_SCRIPT' SIGINT # Unset the variable on Ctrl+C 
 
 source "$HOME/.cache/wal/colors-tty.sh"
 if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ${BASH_EXECUTION_STRING} ]]; then
-	exec fish
+  exec fish
 fi

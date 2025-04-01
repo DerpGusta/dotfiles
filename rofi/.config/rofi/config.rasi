@@ -1,5 +1,5 @@
 configuration {
-    dpi:                        0;
+    dpi:                        157;
     auto-select:                false;
     modi:                       "drun,run,window,ssh,keys";
     font:                       "Iosevka Nerd Font 9";

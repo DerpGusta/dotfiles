@@ -1,12 +1,26 @@
 return {
   {
+    "zenbones-theme/zenbones.nvim",
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    dependencies = "rktjmp/lush.nvim",
+    lazy = false,
+    priority = 1000,
+    -- you can set set configuration options here
+    -- config = function()
+    --     vim.g.zenbones_darken_comments = 45
+    --     vim.cmd.colorscheme('zenbones')
+    -- end
+  },
+  {
     "Mofiqul/vscode.nvim",
     event = "VeryLazy",
     lazy = true,
     priority = 1000,
     config = function()
       require("vscode").setup()
-    --   require("vscode").load()
+      --   require("vscode").load()
     end,
   },
   {
@@ -45,32 +59,32 @@ return {
       -- require("bamboo").load()
     end,
   },
-  { "miikanissi/modus-themes.nvim",
-  event = "VeryLazy",
-  lazy = true,
-  priority = 10,
-  config = function ()
-    require("modus-themes").setup({
-    })
-  -- vim.cmd([[colorscheme modus]])
-  end
-},
-{
-  "catppuccin/nvim",
-  name = "catppuccin",
-  event = "VeryLazy",
-  lazy = true,
-  priority = 100,
-  config = function()
-    require("catppuccin").setup({
-      flavour = "latte", -- latte, frappe, macchiato, mocha
-      background = { -- :h background
-      light = "latte",
-      dark = "mocha",
-    },
-  })
-  -- vim.cmd([[colorscheme catppuccin]])
-end,
+  {
+    "miikanissi/modus-themes.nvim",
+    event = "VeryLazy",
+    lazy = true,
+    priority = 10,
+    config = function()
+      require("modus-themes").setup({})
+      -- vim.cmd([[colorscheme modus]])
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    event = "VeryLazy",
+    lazy = true,
+    priority = 100,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "latte", -- latte, frappe, macchiato, mocha
+        background = { -- :h background
+          light = "latte",
+          dark = "mocha",
+        },
+      })
+      -- vim.cmd([[colorscheme catppuccin]])
+    end,
   },
   {
     "projekt0n/github-nvim-theme",
@@ -83,10 +97,14 @@ end,
   },
   {
     "folke/tokyonight.nvim",
-    event = "VeryLazy",
-    lazy = true,
-    priority = 100,
-    opts = {},
+    -- event = "VeryLazy",
+    lazy = false,
+    priority = 10,
+    opts = { style = "night" },
+    config = function(opts)
+      require("tokyonight").setup(opts)
+      vim.cmd([[colorscheme tokyonight]])
+    end,
   },
   {
     "sainnhe/gruvbox-material",
@@ -94,8 +112,9 @@ end,
     lazy = true,
     priority = 100,
     config = function()
-      vim.g.gruvbox_material_background = 'hard'
-      vim.g.gruvbox_material_foreground = 'original'
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_foreground = "original"
+      vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_disable_italic_comment = 1
       -- vim.cmd[[colorscheme gruvbox-material]]
     end,
@@ -103,14 +122,22 @@ end,
   {
     "ellisonleao/gruvbox.nvim",
     event = "VeryLazy",
-    lazy = false,
-    priority = 100,
+    lazy = true,
+    priority = 10,
     config = function()
-    require("gruvbox").setup({
-      contrast="hard",
-    })
-    vim.cmd[[colorscheme gruvbox]]
-    end
+      require("gruvbox").setup({
+        contrast = "hard",
+      })
+      vim.cmd([[colorscheme gruvbox]])
+    end,
+  },
+  {
+    "https://github.com/therubymug/vim-pyte",
+    priority = 100,
+    lazy = true,
+    config = function()
+      -- vim.cmd[[colorscheme pyte]]
+    end,
   },
   { "EdenEast/nightfox.nvim", lazy = false, event = "VeryLazy" },
 }

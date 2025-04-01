@@ -1,10 +1,13 @@
-return {
-        "lukas-reineke/headlines.nvim",
-        dependencies = "nvim-treesitter/nvim-treesitter",
-        ft = {"markdown"},
-        config = function()
-        require("headlines").setup {
-            markdown = { bullets = {} },
-          }
-        end
-    }
+return {}
+-- return {
+--   "lukas-reineke/headlines.nvim",
+--   dependencies = "nvim-treesitter/nvim-treesitter",
+--   ft = { "markdown" },
+--   config = function()
+--     require("headlines").setup {
+--       markdown = { fat_headlines = false,
+--       headline_highlights = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6"},
+--       bullets = {} },
+--     }
+--   end
+-- }

@@ -1,4 +1,4 @@
-# It will not be overwritten, so edit it as you like.  
+# It will not be overwritten, so edit it as you like.
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
@@ -37,10 +37,21 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 # disable focus follows mouse
 focus_follows_mouse no
+# enable focus wrapping
+focus_wrapping yes
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -terminal $term -show drun -icon-theme "Gruvbox-Material-Dark"
 # emoji picker
 bindsym $mod+period exec rofi -modi emoji -show emoji
+
+### vim-like-marks
+# read 1 character and mark the current window with this character
+bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+# unmark current window
+bindsym $mod+Shift+m exec i3-input -F 'unmark %s' -l 1 -P 'Unmark: '
+# read 1 character and go to the window with the character
+bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -75,13 +86,13 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $alt+h split h
+#bindsym $alt+h split h
 
 # split in vertical orientation
 bindsym $alt+g split v
 
 # toggle split direction
-bindsym $mod+q split toggle
+bindsym $mod+grave split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -120,15 +131,17 @@ workspace 1 output eDP-1
 workspace 2 output eDP-1
 workspace 3 output HDMI-1
 workspace 4 output HDMI-1
-workspace 5 output eDP-1
+workspace 5 output HDMI-1
 workspace 6 output eDP-1
 workspace 7 output eDP-1
 workspace 8 output eDP-1
 workspace 9 output eDP-1
 workspace 10 output eDP-1
+
 # keybindings to interact with workspaces across monitors
 bindsym $mod+Control+m move workspace to output primary
 bindsym $mod+Control+s move workspace to output HDMI-1
+
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -155,6 +168,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
@@ -202,22 +216,22 @@ bindsym $mod+r mode "resize"
 #THEME#
 #######
 
-set_from_resource $base00 color0 
-set_from_resource $base01 color1  
-set_from_resource $base02 color2  
-set_from_resource $base03 color3  
-set_from_resource $base04 color4  
-set_from_resource $base05 color5  
-set_from_resource $base06 color6  
-set_from_resource $base07 color7  
-set_from_resource $base08 color8  
-set_from_resource $base09 color9  
-set_from_resource $base0A color10 
-set_from_resource $base0B color11 
-set_from_resource $base0C color12 
-set_from_resource $base0D color13 
-set_from_resource $base0E color14 
-set_from_resource $base0F color15 
+set_from_resource $base00 color0
+set_from_resource $base01 color1
+set_from_resource $base02 color2
+set_from_resource $base03 color3
+set_from_resource $base04 color4
+set_from_resource $base05 color5
+set_from_resource $base06 color6
+set_from_resource $base07 color7
+set_from_resource $base08 color8
+set_from_resource $base09 color9
+set_from_resource $base0A color10
+set_from_resource $base0B color11
+set_from_resource $base0C color12
+set_from_resource $base0D color13
+set_from_resource $base0E color14
+set_from_resource $base0F color15
 
 # # Basic bar configuration using the Base16 variables.
 # bar {
@@ -239,7 +253,7 @@ set_from_resource $base0F color15
 
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base06 $base00 $base06 $base0D $base08
+client.focused          $base06 $base00 $base06 $base0D $base04
 client.focused_inactive $base02 $base00 $base06 $base03 $base00
 client.unfocused        $base00 $base00 $base07 $base01 $base00
 client.urgent           $base01 $base01 $base03 $base08 $base08
@@ -260,7 +274,7 @@ client.background       $base07
 ##		background $bg
 ##		# text color used for blocks that do not have a color specified.
 ##		statusline $yellow
-##		# workspaces section            
+##		# workspaces section
 ##		#                    border  backgr. text
 ##		focused_workspace    $aqua $aqua $darkgray
 ##		inactive_workspace   $darkgray $darkgray $yellow
@@ -275,7 +289,7 @@ client.background       $base07
 #client.focused_inactive $gray $darkgray $yellow $purple $darkgray
 #client.unfocused        $black $darkgray $yellow $purple $darkgray
 #client.urgent 		$red $red $white $red $red
-# 
+#
 
 ################
 #   shortcuts  #
@@ -291,20 +305,23 @@ mode "$zathura" {
 
     }
 bindsym $mod+i exec firefox
-# bindsym $mod+n exec NVIM_APPNAME=AstroNvim neovide --maximized 
-bindsym $mod+n exec neovide --maximized 
+# bindsym $mod+n exec NVIM_APPNAME=AstroNvim neovide --maximized
+bindsym $mod+n exec neovide --maximized
 bindsym $mod+o exec obsidian
 bindsym $mod+Print exec flameshot gui
+bindsym $mod+Shift+o exec ~/dotfiles/scripts/ocr.sh
 bindsym $mod+z mode "$zathura"
+#bindsym $mod+p exec ~/.config/rofi/scripts/zathura.sh light
 bindsym $mod+p exec ~/.config/rofi/scripts/sioyek.sh
 bindsym $mod+comma exec udiskie-dmenu
-bindsym $mod+y exec $term start -- yazi
+bindsym $mod+y exec $term -e yazi ~/Downloads
 bindsym $mod+Shift+greater exec --no-startup-id mpc -p 6600 next
 bindsym $mod+Shift+less exec --no-startup-id  mpc -p 6600 prev
-bindsym $mod+Shift+period exec --no-startup-id  mpc -p 6600 toggle
+bindsym $mod+Shift+t exec --no-startup-id  mpc -p 6600 toggle
 bindsym $mod+Shift+c exec --no-startup-id  ~/dotfiles/scripts/theme.sh true
+bindsym $mod+Shift+d exec --no-startup-id  rofi-autorandr
 for_window [instance="dropdown"] floating enable, move scratchpad
-bindsym $mod+grave exec --no-startup-id ~/dotfiles/scripts/scratch.sh dropdown "nvim"
+bindsym $alt+grave exec --no-startup-id ~/dotfiles/scripts/scratch.sh dropdown "nvim"
 bindsym XF86MonBrightnessUp exec brightnessctl s +2%
 bindsym XF86MonBrightnessDown exec brightnessctl s 2%-
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
@@ -314,12 +331,13 @@ bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 ##################
 #    settings    #
 ##################
-bindsym $mod+m exec polybar-msg cmd toggle
-bindsym $alt+grave exec rofi -modi "clip:greenclip print" -show clip -run-command {'cmd'}
+bindsym $mod+b exec polybar-msg cmd toggle
+bindsym $mod+q exec rofi -modi "clip:greenclip print" -show clip -run-command {'cmd'}
+bindsym $mod+t exec solanum
 hide_edge_borders smart
 title_align center
-workspace_auto_back_and_forth yes
-for_window [class="^.*"] border pixel 1
+workspace_auto_back_and_forth no
+for_window [class="^.*"] border pixel 2
 for_window [window_role="pop-up"] floating enable
 for_window [class="keepassxc"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -335,16 +353,16 @@ exec --no-startup-id greenclip daemon
 exec --no-startup-id dunst
 exec --no-startup-id lxqt-policykit-agent
 exec --no-startup-id unclutter --jitter 10
-exec --no-startup-id xrdb ~/.Xresources
+#exec --no-startup-id xrdb ~/.Xresources
 # Become the flash! (copied from https://github.com/ryanpcmcquen/linuxTweaks/blob/master/.xfceSetup.sh)
-exec --no-startup-id xfconf-query -n -c keyboards -p /Default/KeyRepeat/Delay -t int -s 300
+exec --no-startup-id xfconf-query -n -c keyboards -p /Default/KeyRepeat/Delay -t int -s 250
 exec --no-startup-id xfconf-query -n -c keyboards -p /Default/KeyRepeat/Rate -t int -s 20
 exec_always --no-startup-id picom
-exec_always --no-startup-id xfsettingsd
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id xfsettingsd --daemon
+exec --no-startup-id nitrogen --restore --set-auto
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id barriers --disable-client-cert-checking -a :24800
-assign [class="firefox"] $ws1
+# exec --no-startup-id barriers --disable-client-cert-checking -a :24800
+# assign [class="firefox"] $ws1
 exec --no-startup-id ~/.config/i3/i3-restore/i3-restore
 exec --no-startup-id keepassxc
 # exec --no-startup-id safeeyes

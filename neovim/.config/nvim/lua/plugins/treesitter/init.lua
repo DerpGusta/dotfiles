@@ -6,7 +6,8 @@ return {
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
     opts = {
-      highlight = { enable = true },
+      highlight = { enable = true ,
+      disable = {"latex"}},
 
       ensure_installed = {
         'lua',
@@ -14,9 +15,14 @@ return {
         'markdown',
         'markdown_inline',
         'html',
+        'yaml',
         'vim',
         'vimdoc',
-        'query'
+        'query',
+        'dockerfile',
+        'latex',
+        'bibtex',
+        'regex',
       },
 
       incremental_selection = {

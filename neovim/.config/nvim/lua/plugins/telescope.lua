@@ -17,14 +17,6 @@ return {
 				terraform_doc = {
 					url_open_command = "xdg-open",
 				},
-				repo = {
-					shorten_path = true,
-          list = {
-            fd_opts = {
-              "--no-ignore-vcs",
-            },
-          },
-				},
 			},
 		},
 		keys = {
@@ -52,27 +44,6 @@ return {
 					})
 				end,
 				desc = "Dotfiles",
-			},
-		},
-	},
-	{
-		"cljoly/telescope-repo.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("telescope").load_extension("repo")
-		end,
-		keys = {
-			{
-				"<leader>tg",
-				function()
-					require("telescope").extensions.repo.list(require("telescope.themes").get_ivy({
-						file_ignore_patterns = { "/%.cache/", "/%.local/" },
-					}))
-				end,
-				desc = "Browse Projects",
 			},
 		},
 	},

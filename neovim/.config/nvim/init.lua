@@ -1,5 +1,5 @@
 if vim.g.neovide then
-  vim.o.guifont = "JetBrainsMono Nerd Font:h10"
+  vim.o.guifont = "Iosevka Comfy Fixed,Symbols Nerd Font:h10:#e-antialias"
   -- vim.o.linespacing = 0 -- use a negative number for reducing space between characters
   vim.g.neovide_remember_window_size = true
 
@@ -34,7 +34,7 @@ if vim.g.neovide then
 
   -- Check current pywal theme and sets the background accordingly
   local function bg_toggle()
-    local file = io.open(home .. "/.cache/wal/last_used_theme", 'r')
+    local file = io.open(home .. "/.cache/wal/last_used_theme", "r")
     if not file then
       print("theme_toggle: cannot read file")
     else
@@ -96,7 +96,6 @@ end
 local indent = 2
 local scroll = 2
 
-
 vim.o.number = true
 vim.o.cursorline = true
 vim.o.relativenumber = true
@@ -105,19 +104,23 @@ vim.o.tabstop = indent
 vim.o.expandtab = true
 vim.o.scrolloff = scroll
 vim.o.sidescrolloff = scroll
+vim.o.inccommand = "split"
+vim.o.ignorecase = true
+vim.o.smartcase = true
 vim.o.timeoutlen = 300
 vim.o.updatetime = 200 -- used by CursorHold event
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.termguicolors = true
-vim.o.cmdheight = 1
-vim.o.foldcolumn= '1'
+-- vim.o.cmdheight = 2
+vim.o.foldcolumn = "1"
+vim.o.signcolumn = "number"
 vim.o.conceallevel = 2
 vim.o.foldlevel = 99 -- Using ufo provider need a large value (sourced from docs)
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.diagnostic.config({virtual_text = false})
+vim.o.fillchars = [[eob:~,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.diagnostic.config({ virtual_text = false })
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -144,6 +147,10 @@ local opts = {
   },
   defaults = { lazy = true },
   install = { missing = true, colorscheme = { "habamax" } },
+  rocks = {
+    enabled = true,
+    hererocks = true,
+  },
   ui = {
     size = { width = 0.9, height = 0.9 },
     wrap = true,
