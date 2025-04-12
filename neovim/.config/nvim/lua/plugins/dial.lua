@@ -9,6 +9,7 @@ return {
         augend.integer.alias.hex,
         augend.date.alias["%Y/%m/%d"],
         augend.constant.alias.bool,
+        augend.constant.new({ elements = { "yes", "no" } }),
         augend.semver.alias.semver,
         augend.constant.new({ elements = { "let", "const" } }),
       },
