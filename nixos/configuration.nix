@@ -87,6 +87,8 @@
   programs.neovim.defaultEditor = true;
 
   programs.nix-ld.enable = true;
+  # compatibility for non-nixos binaries and FHS dependent scripts
+  services.envfs.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

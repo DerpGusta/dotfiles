@@ -75,6 +75,12 @@
     brightnessctl
     mpc
     wireplumber
+    picom
+    vimiv-qt
+    wallust
+    xorg.xdpyinfo
+    xfce.xfce4-settings
+    xfce.xfconf 
 
   ];
 
