@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #TODO: add time based theme setting on i3 startup
 toggle=$1
 waldir="$HOME/.config/wal/colorschemes"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -z "$(xdotool search --classname "$1")" ]; then
   i3-msg "exec --no-startup-id wezterm start --class $1 -- ${*:2} "
